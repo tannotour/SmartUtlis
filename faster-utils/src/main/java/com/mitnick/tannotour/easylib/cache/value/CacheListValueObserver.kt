@@ -12,17 +12,17 @@ import org.jetbrains.anko.uiThread
  */
 interface CacheListValueObserver: CacheObserver {
 
-    fun <T> onUpdate(key: String, cache: CacheList<T>?){
+    fun onUpdate(key: String, cache: CacheList<*>?){
         if(Looper.myLooper() == Looper.getMainLooper()){
-            onNotify(key, cache)
+            onNotify(Class.forName(key), cache)
         }else{
             doAsync {
                 uiThread {
-                    onNotify(key, cache)
+                    onNotify(Class.forName(key), cache)
                 }
             }
         }
     }
 
-    fun <T> onNotify(key: String, cache: CacheList<T>?)
+    fun onNotify(key: Class<*>, cache: CacheList<*>?)
 }
