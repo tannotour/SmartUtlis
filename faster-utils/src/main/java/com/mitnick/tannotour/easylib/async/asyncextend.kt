@@ -24,7 +24,7 @@ enum class STATE{
 
 fun wait(presenter: Presenter): Deferred<Any> = async(CommonPool) {
     while (presenter.useing){
-        delay(200)
+        delay(500)
     }
     return@async presenter.presenter
 }

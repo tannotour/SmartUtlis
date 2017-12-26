@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.easylib.net.client
 
 import com.google.gson.Gson
+import com.mitnick.tannotour.easylib.net.Obj
 import com.mitnick.tannotour.easylib.net.params.FileType
 import okhttp3.*
 import okhttp3.MultipartBody
@@ -13,15 +14,17 @@ import java.util.*
  * Description http请求功能类
  */
 class Http private constructor(
+        var httpClient: HttpClient,
         var url: String = "",
         var cacheKey: String = "httpCache",
         val headers: HashMap<String, String> = HashMap()
 ){
 
-    private var okHttpClient: OkHttpClient = OkHttpClient()
+//    private var okHttpClient: OkHttpClient = OkHttpClient()
+//    private lateinit var httpClient: HttpClient
 
     /* 私有化构造方法 */
-    private constructor(builder: Builder) : this(url = builder.url, headers = builder.headers)
+    private constructor(builder: Builder) : this(httpClient = builder.httpClient,url = builder.url, headers = builder.headers)
     /* 伴生对象，对外提供静态的build方法 */
     companion object {
         fun build(init: Builder.() -> Unit) = Builder(init).build()
@@ -31,68 +34,94 @@ class Http private constructor(
      * GET方式请求数据
      */
     @Synchronized
-    fun get(): Response{
-        val builder = Request.Builder().url(url)
-        headers.forEach {
-            builder.addHeader(it.key, it.value)
-        }
-        val request = builder.build()
-        val call = okHttpClient.newCall(request)
-        return call.execute()
+    fun <T> get(): com.mitnick.tannotour.easylib.net.Response<T>{
+        return httpClient.get(
+                url,
+                headers
+        )
     }
 
     /**
      * POST方式请求数据（提交json）
      */
     @Synchronized
-    fun post(
+    fun <T> post(
             data: HashMap<String, String> = HashMap(),
             dataKey: String = "data",
             dataObj: Any? = null,
-//            fileKey: String = "file",
             files: Map<FileType, String> = HashMap()
-    ): Response{
-        val builder = Request.Builder().url(url)
-        headers.forEach {
-            builder.addHeader(it.key, it.value)
-        }
-//        val body = FormBody.Builder()
-        val body = MultipartBody.Builder().setType(MultipartBody.FORM)
-        data.forEach {
-            body.addFormDataPart(it.key, it.value)
-        }
-        if(dataObj == null){
-            body.addFormDataPart(dataKey, Gson().toJson(dataObj))
-        }
-        if(files.isNotEmpty()){
-            files.forEach {
-                val file = File(it.value)
-                when(it.key){
-                    FileType.TYPE_FILE -> {
-                        body.addPart(
-                                Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.${file.extension}\""),
-                                RequestBody.create(
-                                        MediaType.parse("text/plain"),
-                                        file
-                                )
-                        )
-                    }
-                    FileType.TYPE_IMAGE -> {
-                        body.addPart(
-                                Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.${file.extension}\""),
-                                RequestBody.create(
-                                        MediaType.parse("image/png"),
-                                        file
-                                )
-                        )
-                    }
-                }
-            }
-        }
-        val request = builder.post(body.build()).build()
-        val call = okHttpClient.newCall(request)
-        return call.execute()
+    ): com.mitnick.tannotour.easylib.net.Response<T>{
+        return httpClient.post(
+                url, headers, data, dataKey, dataObj, files
+        )
     }
+
+//    /**
+//     * GET方式请求数据
+//     */
+//    @Synchronized
+//    fun get(): Response{
+//        val builder = Request.Builder().url(url)
+//        headers.forEach {
+//            builder.addHeader(it.key, it.value)
+//        }
+//        val request = builder.build()
+//        val call = okHttpClient.newCall(request)
+//        return call.execute()
+//    }
+//
+//    /**
+//     * POST方式请求数据（提交json）
+//     */
+//    @Synchronized
+//    fun post(
+//            data: HashMap<String, String> = HashMap(),
+//            dataKey: String = "data",
+//            dataObj: Any? = null,
+////            fileKey: String = "file",
+//            files: Map<FileType, String> = HashMap()
+//    ): Response{
+//        val builder = Request.Builder().url(url)
+//        headers.forEach {
+//            builder.addHeader(it.key, it.value)
+//        }
+////        val body = FormBody.Builder()
+//        val body = MultipartBody.Builder().setType(MultipartBody.FORM)
+//        data.forEach {
+//            body.addFormDataPart(it.key, it.value)
+//        }
+//        if(dataObj == null){
+//            body.addFormDataPart(dataKey, Gson().toJson(dataObj))
+//        }
+//        if(files.isNotEmpty()){
+//            files.forEach {
+//                val file = File(it.value)
+//                when(it.key){
+//                    FileType.TYPE_FILE -> {
+//                        body.addPart(
+//                                Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.${file.extension}\""),
+//                                RequestBody.create(
+//                                        MediaType.parse("text/plain"),
+//                                        file
+//                                )
+//                        )
+//                    }
+//                    FileType.TYPE_IMAGE -> {
+//                        body.addPart(
+//                                Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file.${file.extension}\""),
+//                                RequestBody.create(
+//                                        MediaType.parse("image/png"),
+//                                        file
+//                                )
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//        val request = builder.post(body.build()).build()
+//        val call = okHttpClient.newCall(request)
+//        return call.execute()
+//    }
 
     /**
      * 建造者
@@ -104,6 +133,12 @@ class Http private constructor(
         }
 
         fun build() = Http(this)
+
+        /* HTTP客户端 */
+        lateinit var httpClient: HttpClient
+        fun httpClient(init: Builder.() -> HttpClient) = apply {
+            httpClient = init()
+        }
 
         /* 请求地址 */
         var url: String = ""
