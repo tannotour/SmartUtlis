@@ -136,6 +136,16 @@ object Cache {
             observers[it.jvmName]?.remove(observer)
             if(observers[it.jvmName]?.isEmpty() as Boolean){
                 observers.remove(it.jvmName)
+                val cache = caches[it.jvmName]
+                if(cache != null){
+                    val autoSync = cache.javaClass.getAnnotation(CacheBean::class.java).autoSync
+                    if(!autoSync){
+                        /* 更新cache到disk */
+                        sync(cache)
+                    }
+                    caches.remove(it.jvmName)
+                }
+
             }
         }
         return true
@@ -190,7 +200,7 @@ object Cache {
         disk.writeToDisk(key, cache)
     }
 
-    fun <T: Any> use(clazz: Class<out T>, call: T.() -> Unit): T{
+    fun <T: Any> use(clazz: Class<out T>, call: T.() -> Unit): Unit{
         if(!clazz.isAnnotationPresent(CacheBean::class.java)){
             throw Exception(clazz.name + " 缓存数据类必须使用CacheBean注解")
         }
@@ -216,6 +226,6 @@ object Cache {
         if(annotation.autoSync){
             sync(cache)
         }
-        return cache
+//        return cache
     }
 }

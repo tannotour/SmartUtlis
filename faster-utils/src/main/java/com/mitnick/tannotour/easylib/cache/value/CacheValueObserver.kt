@@ -11,7 +11,7 @@ import org.jetbrains.anko.uiThread
  */
 interface CacheValueObserver: CacheObserver {
 
-    fun <T> onUpdate(key: String, newValue: T?){
+    fun <T> onUpdate(key: String, newValue: T){
         if(Looper.getMainLooper() == Looper.myLooper()){
             onNotify(key, newValue)
         }else{
@@ -23,5 +23,5 @@ interface CacheValueObserver: CacheObserver {
         }
     }
 
-    fun <T> onNotify(key: String, newValue: T?)
+    fun <T> onNotify(key: String, newValue: T)
 }
