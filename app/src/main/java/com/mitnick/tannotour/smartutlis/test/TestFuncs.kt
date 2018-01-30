@@ -9,8 +9,11 @@ import com.mitnick.tannotour.easylib.async.task
  * Description
  */
 interface TestFuncs : Funcs {
-    fun testFunc(once: Boolean = false, setParams: TestPresenter.() -> Unit) = task(TestPresenter::class.java, once){
-        setParams()
-        doPost()
+    fun testFunc(once: Boolean = false, setParams: TestPresenter.() -> Unit) = task(TestPresenter::class.java, once,
+            doJob = {
+                setParams()
+                doPost()
+            }){
+
     }
 }

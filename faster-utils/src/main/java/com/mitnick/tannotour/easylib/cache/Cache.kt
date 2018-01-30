@@ -20,6 +20,9 @@ object Cache {
     private val TAG = "Cache"
 
     private val caches: ConcurrentHashMap<String, Any> = ConcurrentHashMap()
+//    private val caches: ConcurrentHashMap<String, ConcurrentHashMap<String, Any>> = ConcurrentHashMap()
+    private val needUpdateToDisk: LinkedList<String> = LinkedList()
+    private val changed: LinkedList<String> = LinkedList()
     private val observers: ConcurrentHashMap<String, ArrayList<CacheObserver>> = ConcurrentHashMap()
     private var disk: DiskCache = Disk()
 
@@ -62,16 +65,18 @@ object Cache {
             }
         }
         doAsync {
+            val secondKeys = observer.secondKey()
             cacheKey.keys.forEach{
-                val key = it.jvmName
-                if(!observers.contains(key)){
+                val key = it.jvmName + "-" + secondKeys
+//                val key = it.jvmName
+                if(!observers.containsKey(key)){
                     observers.put(key, ArrayList<CacheObserver>())
                 }
                 if(!observers[key]?.contains(observer)!!){
                     observers[key]?.add(observer)
                 }
                 val cache: Any
-                if(!caches.contains(key)){
+                if(!caches.containsKey(key)){
                     val json = disk.readFromDisk(key)
                     if(json == null || json.isEmpty()){
                         cache = Class.forName(it.jvmName).newInstance()
@@ -90,37 +95,6 @@ object Cache {
                 }
             }
         }
-//        doAsync {
-//            cacheKey.keys.forEach {
-//                val key = it::class.java.name
-//                if(!observers.contains(key)){
-//                    observers.put(key, ArrayList<CacheObserver>())
-//                }
-//                if(observers[key]?.contains(observer)!!){
-//                    return@forEach
-//                }
-//                observers[key]?.add(observer)
-//
-//                val cache: Any
-//                if(!caches.contains(key)){
-//                    val json = disk.readFromDisk(key)
-//                    if(json == null || json.isEmpty()){
-//                        cache = it::class.java.newInstance()
-//                    }else{
-//                        cache = Gson().fromJson(json, it::class.java)
-//                    }
-//                    caches.put(key, cache)
-//                }else{
-//                    cache = caches[key]!!
-//                }
-//                val anno = cache::class.java.getAnnotation(CacheBean::class.java)
-//                if(anno == null){
-//                    Log.e(TAG, "无法获取初始化Cache(${cache::class.java.name})数据，绑定时初始化失败，请添加CacheKey注解。")
-//                }else{
-//                    notifyObserver(key, anno.isList, cache, observer)
-//                }
-//            }
-//        }
         return true
     }
 
@@ -129,19 +103,19 @@ object Cache {
             return false
         }
         observer.javaClass.getAnnotation(CacheKey::class.java).keys.forEach {
-//            observers[it::class.java.name]?.remove(observer)
-//            if(observers[it::class.java.name]?.isEmpty() as Boolean){
-//                observers.remove(it::class.java.name)
-//            }
-            observers[it.jvmName]?.remove(observer)
-            if(observers[it.jvmName]?.isEmpty() as Boolean){
-                observers.remove(it.jvmName)
-                val cache = caches[it.jvmName]
+            val key = it.jvmName + "-" + observer.secondKey()
+            observers[key]?.remove(observer)
+            if(observers[key]?.isEmpty() as Boolean){
+                observers.remove(key)
+                val cache = caches[key]
                 if(cache != null){
                     val autoSync = cache.javaClass.getAnnotation(CacheBean::class.java).autoSync
                     if(!autoSync){
                         /* 更新cache到disk */
-                        sync(cache)
+                        sync(cache, observer.secondKey())
+                    }else if(needUpdateToDisk.contains(key)){
+                        needUpdateToDisk.remove(key)
+                        sync(cache, observer.secondKey())
                     }
                     caches.remove(it.jvmName)
                 }
@@ -160,12 +134,6 @@ object Cache {
         }
     }
 
-//    fun notifyObserver(key: String, isList: Boolean, cache: Any){
-//        observers[key]?.forEach {
-//            notifyObserver(key, isList, cache, it, false)
-//        }
-//    }
-
     fun notifyObserver(key: String, isList: Boolean, cache: Any, observer: CacheObserver){
         if(isList){
             val cacheTrue = (cache as CacheList<*>)
@@ -175,41 +143,39 @@ object Cache {
         }
     }
 
-//    fun notifyObserver(key: String, isList: Boolean, cache: Any, observer: CacheObserver, isInit: Boolean = true){
-//        if(isList){
-//            val cacheTrue = (cache as CopyOnWriteArrayList<*>)
-//            if(isInit){
-//                val changeSet: ChangeSet = ChangeSet(ChangeSet.SIGN_CLEAR_INSERT)
-//                changeSet.insertIndex = 0
-//                changeSet.insertLens = cacheTrue.size
-//                (observer as CacheListValueObserver).onUpdate(key, cacheTrue.clone() as CacheList<*>, changeSet)
-//            }else{
-//                (observer as CacheListValueObserver).onUpdate(key, cacheTrue.clone() as CacheList<*>, null)
-//            }
-//        }else{
-//            (observer as CacheValueObserver).onUpdate(key, cache)
-//        }
-//    }
-
-    fun sync(cache: Any){
+    fun sync(cache: Any, secondKey: String = ""){
         if(!cache.javaClass.isAnnotationPresent(CacheBean::class.java)){
             throw Exception(cache.javaClass.name + " 同步缓存失败,缓存数据类必须使用CacheBean注解")
         }
-//        val key = cache.javaClass.getAnnotation(CacheBean::class.java).key
-        val key = cache.javaClass.name
-        disk.writeToDisk(key, cache)
+        val key = cache.javaClass.name + "-" + secondKey
+        if(changed.contains(key)){
+            changed.remove(key)
+            disk.writeToDisk(key, cache)
+        }else{
+            Log.e(TAG, "缓存 $key 没有被修改过，跳过同步。")
+        }
     }
 
-    fun <T: Any> use(clazz: Class<out T>, call: T.() -> Unit): Unit{
+    fun sync(observer: CacheObserver){
+        observer.javaClass.getAnnotation(CacheKey::class.java).keys.forEach {
+            val key = it.jvmName + "-" + observer.secondKey()
+            val cache = caches[key]
+            if(cache != null){
+                sync(cache, observer.secondKey())
+            }
+        }
+    }
+
+    fun <T: Any> use(clazz: Class<out T>, secondKey: String = "", immediateMode: Boolean = true, call: T.() -> Unit): Unit{
         if(!clazz.isAnnotationPresent(CacheBean::class.java)){
             throw Exception(clazz.name + " 缓存数据类必须使用CacheBean注解")
         }
         val cache: T
-        val key = clazz.name
+        val key = clazz.name + "-" + secondKey
         if(key.isEmpty()){
             throw Exception(clazz.name + " CacheBean(key)不可为空")
         }
-        if(!caches.contains(key)){
+        if(!caches.containsKey(key)){
             val json = disk.readFromDisk(key)
             if(json == null || json.isEmpty()){
                 cache = clazz.newInstance()
@@ -221,11 +187,17 @@ object Cache {
             cache = caches[key] as T
         }
         cache.call()
+        if(!changed.contains(key)){
+            changed.add(key)
+        }
         val annotation = clazz.getAnnotation(CacheBean::class.java)
         notifyObserver(key, annotation.isList, cache)
-        if(annotation.autoSync){
-            sync(cache)
+        if(immediateMode && annotation.autoSync){
+            sync(cache, secondKey)
+        }else if(!immediateMode){
+            if(!needUpdateToDisk.contains(key)){
+                needUpdateToDisk.add(key)
+            }
         }
-//        return cache
     }
 }

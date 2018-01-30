@@ -8,6 +8,8 @@ import com.mitnick.tannotour.easylib.cache.disk.lru.Util
 import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 /**
  * Created by mitnick on 2017/11/13.
@@ -61,25 +63,30 @@ class Disk(var uniqueName: String = "cache", var maxSize: Long = (10 * 1024 * 10
     }
 
     fun preDealKey(key: String): String{
-        return key.replace(".", "")
+//        return key.replace(".", "")
+        return encode(key)
     }
 
-    override fun readFromDisk(key: String, call: ((ok: Boolean, key: String, json: String) -> Unit)?): String? {
+//    , call: ((ok: Boolean, key: String, json: String) -> Unit)?
+
+    override fun readFromDisk(key: String): String? {
         var value: String = ""
         val snapShot = mDiskLruCache?.get(preDealKey(key))
         if (snapShot != null) {
             value = getStreamValue(snapShot, 0)
         }
-        Log.e(TAG, "在硬盘中读取到key=$key,value=$value 的数据。")
+        Log.e(TAG, "在硬盘中读取到key=$key[${preDealKey(key)}],value=$value 的数据。")
         return value
     }
 
-    override fun writeToDisk(key: String, obj: Any?, call: ((ok: Boolean, key: String, obj: Any?) -> Unit)?): Boolean {
+//    , call: ((ok: Boolean, key: String, obj: Any?) -> Unit)?
+
+    override fun writeToDisk(key: String, obj: Any?): Boolean {
         val editor = mDiskLruCache?.edit(preDealKey(key))
         if(editor != null){
             val value = Gson().toJson(obj)
             writeStreamValue(value, editor, 0)
-            Log.e(TAG, "向硬盘写入key=${preDealKey(key)},value=$value 的数据。")
+            Log.e(TAG, "向硬盘写入key=$key[${preDealKey(key)}],value=$value 的数据。")
             return true
         }else{
             Log.e(TAG, "向硬盘写入数据失败，editor为null。")
@@ -94,7 +101,7 @@ class Disk(var uniqueName: String = "cache", var maxSize: Long = (10 * 1024 * 10
             Log.e(TAG, "清空全部硬盘缓存数据。")
         }else{
             mDiskLruCache?.remove(preDealKey(key))
-            Log.e(TAG, "删除key=${preDealKey(key)} size=$size 的硬盘缓存数据。")
+            Log.e(TAG, "删除key=$key[${preDealKey(key)}] size=$size 的硬盘缓存数据。")
         }
         return size
     }

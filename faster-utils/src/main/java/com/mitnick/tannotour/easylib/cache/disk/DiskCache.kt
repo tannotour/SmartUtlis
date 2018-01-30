@@ -1,6 +1,8 @@
 package com.mitnick.tannotour.easylib.cache.disk
 
 import android.content.Context
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.text.DecimalFormat
 
 /**
@@ -11,15 +13,37 @@ interface DiskCache {
 
     fun init(context: Context)
 
-    fun readFromDisk(key: String, call:((ok: Boolean, key: String, json: String) -> Unit)? = null): String?
+//    , call:((ok: Boolean, key: String, json: String) -> Unit)? = null
+    fun readFromDisk(key: String): String?
 
-    fun writeToDisk(key: String, obj: Any?, call: ((ok: Boolean, key: String, obj: Any?) -> Unit)? = null): Boolean
+//    , call: ((ok: Boolean, key: String, obj: Any?) -> Unit)? = null
+    fun writeToDisk(key: String, obj: Any?): Boolean
 
     fun remove(key: String? = null): String
 
     fun totalSize(): String
 
     fun flush()
+
+    fun encode(password: String): String {
+        try {
+            val instance: MessageDigest = MessageDigest.getInstance("MD5")//获取md5加密对象
+            val digest:ByteArray = instance.digest(password.toByteArray())//对字符串加密，返回字节数组
+            val sb : StringBuffer = StringBuffer()
+            for (b in digest) {
+                val i :Int = b.toInt() and 0xff//获取低八位有效值
+                var hexString = Integer.toHexString(i)//将整数转化为16进制
+                if (hexString.length < 2) {
+                    hexString = "0" + hexString//如果是一位的话，补0
+                }
+                sb.append(hexString)
+            }
+            return sb.toString()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+        return ""
+    }
 
     fun formetFileSize(fileS: Long?): String {
         if(fileS == null){

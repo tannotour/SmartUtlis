@@ -8,10 +8,10 @@ import java.util.concurrent.CopyOnWriteArrayList
  * Created by mitnick on 2017/12/16.
  * Description
  */
-abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>() {
+abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>(), Cloneable {
 
     /* 更新记录 */
-    val changes: LinkedList<ChangeSet> = LinkedList()
+    var changes: LinkedList<ChangeSet> = LinkedList()
 
     override fun add(element: T): Boolean {
         if(size >= maxSize){
@@ -42,11 +42,11 @@ abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>() {
         elements.reversed().forEach {
             super.add(position, it)
         }
-        changes.add(ChangeSet(ChangeSet.TYPE.ADD, position))
+        changes.add(ChangeSet(ChangeSet.TYPE.ADD, position, position + elements.size))
     }
 
     override fun set(index: Int, element: T): T {
-        changes.add(ChangeSet(ChangeSet.TYPE.SET, minOf(maxOf(index, 0), size)))
+        changes.add(ChangeSet(ChangeSet.TYPE.SET, minOf(maxOf(index, 0), size), minOf(maxOf(index, 0), size)))
         return super.set(index, element)
     }
 
@@ -79,12 +79,25 @@ abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>() {
     }
 
     override fun clear() {
-        changes.clear()
-        changes.add(ChangeSet(ChangeSet.TYPE.CLEAR))
+        changes.add(ChangeSet(ChangeSet.TYPE.CLEAR, size - 1, size - 1))
         super.clear()
+        val i = 0
     }
 
     fun clearRecord(){
         changes.clear()
+    }
+
+    fun updateChanges(){
+        if(changes.isEmpty() && isNotEmpty()){
+            changes.add(ChangeSet(ChangeSet.TYPE.CLEAR, 0, 0))
+            changes.add(ChangeSet(ChangeSet.TYPE.ADD, 0, size - 1))
+        }
+    }
+
+    override fun clone(): Any {
+        val newCacheList = super<CopyOnWriteArrayList>.clone() as CacheList<T>
+        newCacheList.changes = changes.clone() as LinkedList<ChangeSet>
+        return newCacheList
     }
 }

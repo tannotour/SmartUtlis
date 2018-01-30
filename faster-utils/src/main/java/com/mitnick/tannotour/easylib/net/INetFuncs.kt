@@ -1,5 +1,6 @@
 package com.mitnick.tannotour.easylib.net
 
+import android.content.BroadcastReceiver
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Response
@@ -75,9 +76,15 @@ class Response<T>(
         var bodyJson: String,
         var body: T? = null
 ){
-    fun convert(clazz: Class<T>): com.mitnick.tannotour.easylib.net.Response<T>{
+    fun convert(clazz: Class<T>, call: ((response: com.mitnick.tannotour.easylib.net.Response<T>) -> Boolean)? = null): com.mitnick.tannotour.easylib.net.Response<T>?{
         body = Gson().fromJson(bodyJson, clazz)
-        return this
+        if(call != null && call.invoke(this)){
+            return this
+        }else if(call == null){
+            return this
+        }else{
+            return null
+        }
     }
 }
 

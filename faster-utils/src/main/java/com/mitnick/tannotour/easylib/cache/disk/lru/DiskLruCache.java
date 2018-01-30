@@ -93,7 +93,7 @@ public final class DiskLruCache implements Closeable {
   static final String VERSION_1 = "1";
   static final long ANY_SEQUENCE_NUMBER = -1;
 //  static final String STRING_KEY_PATTERN = "[a-z0-9_-]{1,120}";
-static final String STRING_KEY_PATTERN = "[a-zA-Z0-9_-]{1,120}";
+static final String STRING_KEY_PATTERN = "[\\u4e00-\\u9fa5a-zA-Z0-9_-]{1,120}";
   static final Pattern LEGAL_KEY_PATTERN = Pattern.compile(STRING_KEY_PATTERN);
   private static final String CLEAN = "CLEAN";
   private static final String DIRTY = "DIRTY";

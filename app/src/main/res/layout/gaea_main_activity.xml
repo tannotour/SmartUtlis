@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:context=".gaea.GaeaMainActivity">
+
+    <FrameLayout
+        android:id="@+id/gaeaMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/gaeaMainRadioGroup"/>
+
+    <RadioGroup
+        android:id="@+id/gaeaMainRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingTop="3dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <RadioButton
+            android:id="@+id/gaeaMainRadioMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="消息"
+            android:textSize="12sp"
+            android:textColor="@drawable/gaea_bottom_icon_text_selector"
+            android:drawableTop="@drawable/gaea_bottom_icon_message_selector"/>
+
+        <RadioButton
+            android:id="@+id/gaeaMainRadioWeather"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="天气"
+            android:textSize="12sp"
+            android:textColor="@drawable/gaea_bottom_icon_text_selector"
+            android:drawableTop="@drawable/gaea_bottom_icon_weather_selector"/>
+
+        <RadioButton
+            android:id="@+id/gaeaMainRadioMain"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/gaea_bottom_icon_add_selector"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/gaeaMainRadioShare"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="分享"
+            android:textSize="12sp"
+            android:textColor="@drawable/gaea_bottom_icon_text_selector"
+            android:drawableTop="@drawable/gaea_bottom_icon_share_selector"/>
+
+        <RadioButton
+            android:id="@+id/gaeaMainRadioMe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="我"
+            android:textSize="12sp"
+            android:textColor="@drawable/gaea_bottom_icon_text_selector"
+            android:drawableTop="@drawable/gaea_bottom_icon_me_selector"/>
+    </RadioGroup>
+</RelativeLayout>

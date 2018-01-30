@@ -5,5 +5,7 @@ package com.mitnick.tannotour.easylib.cache
  * Description
  */
 interface CacheObserver {
-
+    fun secondKey(): String{
+        return ""
+    }
 }

@@ -17,7 +17,7 @@ class TestPresenter: INet {
         val response = get<YY> {
             url = URLL
         }.convert(YY::class.java)
-        println("网络请求完成：\n${response.body?.toString()}")
+        println("网络请求完成：\n${response?.body?.toString()}")
         /* 写缓存 */
         Cache.use(YY::class.java){
             for (i in arrayOf(1, 2, 3, 4, 5)){
@@ -26,7 +26,7 @@ class TestPresenter: INet {
             }
         }
         /* 返回执行结果 */
-        if(response.code == CODE.CODE_SUCCESSFUL){
+        if(response?.code == CODE.CODE_SUCCESSFUL){
             return STATE.SUCCESS
         }else{
             return STATE.FAILED
