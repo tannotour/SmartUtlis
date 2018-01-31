@@ -16,5 +16,6 @@ import java.lang.annotation.Target;
 public @interface CacheBean {
 //    String key() default  "";
     boolean isList() default false;
+    String[] secondKeys() default {};
     boolean autoSync() default true;
 }

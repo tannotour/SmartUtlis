@@ -79,9 +79,9 @@ abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>(), 
     }
 
     override fun clear() {
+        changes.clear()
         changes.add(ChangeSet(ChangeSet.TYPE.CLEAR, size - 1, size - 1))
         super.clear()
-        val i = 0
     }
 
     fun clearRecord(){
@@ -89,7 +89,7 @@ abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>(), 
     }
 
     fun updateChanges(){
-        if(changes.isEmpty() && isNotEmpty()){
+        if(changes.isEmpty() && size > 0){
             changes.add(ChangeSet(ChangeSet.TYPE.CLEAR, 0, 0))
             changes.add(ChangeSet(ChangeSet.TYPE.ADD, 0, size - 1))
         }
