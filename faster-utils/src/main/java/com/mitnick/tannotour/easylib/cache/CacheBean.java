@@ -18,4 +18,5 @@ public @interface CacheBean {
     boolean isList() default false;
     String[] secondKeys() default {};
     boolean autoSync() default true;
+    boolean memoryResident() default false;//常驻内存
 }

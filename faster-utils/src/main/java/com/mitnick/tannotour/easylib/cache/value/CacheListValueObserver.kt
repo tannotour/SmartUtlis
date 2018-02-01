@@ -15,7 +15,7 @@ interface CacheListValueObserver: CacheObserver {
     fun onUpdate(key: String, cache: CacheList<*>){
         cache.updateChanges()
         if(Looper.myLooper() == Looper.getMainLooper()){
-            onNotify(Class.forName(key), cache)
+            onNotify(Class.forName(key.split("-").first()), cache)
         }else{
             doAsync {
                 uiThread {

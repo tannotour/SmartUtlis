@@ -140,7 +140,11 @@ object Cache {
                         needUpdateToDisk.remove(key)
                         sync(cache, observer.secondKey())
                     }
-                    caches.remove(it.jvmName)
+                    val memoryResident = cache.javaClass.getAnnotation(CacheBean::class.java).memoryResident
+                    if(!memoryResident){
+                        caches.remove(it.jvmName)
+                    }
+//                    caches.remove(it.jvmName)
                 }
 
             }
@@ -228,6 +232,9 @@ object Cache {
                 val buffer = ArraySet<String>()
                 Class.forName(clazz.name).getAnnotation(CacheBean::class.java)?.secondKeys?.forEach { secondKey ->
                     buffer.add(clazz.name + "-" + secondKey)
+                }
+                if(buffer.size == 0){
+                    buffer.add(clazz.name + "-")
                 }
                 keysMap.put(clazz.name + "-", buffer)
             }

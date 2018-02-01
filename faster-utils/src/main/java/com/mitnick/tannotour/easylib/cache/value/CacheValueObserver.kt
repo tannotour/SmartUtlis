@@ -11,17 +11,33 @@ import org.jetbrains.anko.uiThread
  */
 interface CacheValueObserver: CacheObserver {
 
-    fun <T> onUpdate(key: String, newValue: T){
+    fun onUpdate(key: String, newValue: Any){
         if(Looper.getMainLooper() == Looper.myLooper()){
-            onNotify(key, newValue)
+            onNotify(Class.forName(key.split("-").first()), newValue)
         }else{
             doAsync {
                 uiThread {
-                    onNotify(key, newValue)
+                    onNotify(Class.forName(key.split("-").first()), newValue)
                 }
             }
         }
     }
 
-    fun <T> onNotify(key: String, newValue: T)
+    //    fun <T> onNotify(key: String, newValue: T)
+    fun onNotify(key: Class<*>, newValue: Any)
+
+//    fun <T> onUpdate(key: String, newValue: T){
+//        if(Looper.getMainLooper() == Looper.myLooper()){
+//            onNotify(Class.forName(key), newValue)
+//        }else{
+//            doAsync {
+//                uiThread {
+//                    onNotify(Class.forName(key), newValue)
+//                }
+//            }
+//        }
+//    }
+//
+////    fun <T> onNotify(key: String, newValue: T)
+//    fun <T> onNotify(key: Class<*>, newValue: T)
 }
