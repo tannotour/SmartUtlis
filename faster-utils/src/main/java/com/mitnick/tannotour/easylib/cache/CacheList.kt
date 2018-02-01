@@ -78,6 +78,16 @@ abstract class CacheList<T>(var maxSize: Int = 128): CopyOnWriteArrayList<T>(), 
         return true
     }
 
+    fun findByCondition(condition: T.() -> Boolean): List<Int>{
+        val result = LinkedList<Int>()
+        forEachIndexed { index, it ->
+            if(it.condition()){
+                result.add(index)
+            }
+        }
+        return result
+    }
+
     override fun clear() {
         changes.clear()
         changes.add(ChangeSet(ChangeSet.TYPE.CLEAR, size - 1, size - 1))
