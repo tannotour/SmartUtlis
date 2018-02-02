@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/login_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mitnick.tannotour.smartutlis.gaea.floatbackground.FloatBackground
+        android:id="@+id/loginFloatView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/loginImg"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="1dp"
+                app:contentPadding="12dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/cardView"
+                android:layout_below="@+id/loginImg">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/loginPhone"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:drawablePadding="12dp"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:ems="6"
+                        android:textSize="14sp"
+                        android:hint="电话号码"
+                        android:inputType="phone"
+                        android:maxLength="11"
+                        android:padding="12dp"
+                        android:textColor="@color/colorBlack"
+                        android:typeface="monospace" />
+
+                    <RelativeLayout
+                        android:id="@+id/loginCodeRoot"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/loginCode"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00000000"
+                            android:drawablePadding="12dp"
+                            android:drawableStart="@drawable/ic_code"
+                            android:ems="6"
+                            android:textSize="14sp"
+                            android:hint="短信验证码"
+                            android:inputType="number"
+                            android:maxLength="6"
+                            android:padding="12dp"
+                            android:textColor="@color/colorBlack"
+                            android:typeface="monospace"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@+id/loginGetCode" />
+
+                        <TextView
+                            android:id="@+id/loginGetCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="获取验证码"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/text_backround"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/loginPassword"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:drawablePadding="12dp"
+                        android:drawableStart="@drawable/ic_password"
+                        android:ems="6"
+                        android:textSize="14sp"
+                        android:hint="密码"
+                        android:inputType="textPassword"
+                        android:maxLength="20"
+                        android:padding="12dp"
+                        android:textColor="@color/colorBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="36dp"
+                android:layout_above="@+id/toRegister"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="1dp"
+                app:contentPadding="14dp">
+                <!--android:foreground="?attr/selectableItemBackground"-->
+
+                <TextView
+                    android:id="@+id/loginButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:text="登录" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/toRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="12dp"
+                android:text="注册"
+                android:textColor="@color/colorWhite"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/forgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/cardView"
+                android:layout_below="@+id/cardView"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:textColor="@color/colorWhite"
+                android:text="忘记密码" />
+        </RelativeLayout>
+    </com.mitnick.tannotour.smartutlis.gaea.floatbackground.FloatBackground>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="230dp"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>
