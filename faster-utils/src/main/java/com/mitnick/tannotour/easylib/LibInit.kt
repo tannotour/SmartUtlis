@@ -86,7 +86,11 @@ object LibInit {
                     }
 
                     override fun onFragmentStarted(fragment: Fragment?) {
-
+                        if(fragment!=null && fragment is CacheObserver && Cache.addObserver(fragment)){
+                            Log.e(TAG, fragment.javaClass.name + "自动执行Cache监听初始化完毕。")
+                        }else{
+                            Log.e(TAG, fragment?.javaClass?.name + "跳过Cache初始化。")
+                        }
                     }
 
                     override fun onFragmentResumed(fragment: Fragment?) {
@@ -130,11 +134,11 @@ object LibInit {
                     }
 
                     override fun onFragmentViewCreated(fragment: Fragment?, view: View?, savedInstanceState: Bundle?) {
-                        if(fragment!=null && fragment is CacheObserver && Cache.addObserver(fragment)){
-                            Log.e(TAG, fragment.javaClass.name + "自动执行Cache监听初始化完毕。")
-                        }else{
-                            Log.e(TAG, fragment?.javaClass?.name + "跳过Cache初始化。")
-                        }
+//                        if(fragment!=null && fragment is CacheObserver && Cache.addObserver(fragment)){
+//                            Log.e(TAG, fragment.javaClass.name + "自动执行Cache监听初始化完毕。")
+//                        }else{
+//                            Log.e(TAG, fragment?.javaClass?.name + "跳过Cache初始化。")
+//                        }
                     }
 
                 }

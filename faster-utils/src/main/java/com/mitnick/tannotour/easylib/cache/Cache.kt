@@ -214,11 +214,14 @@ object Cache {
             }else{
                 cache = caches[key] as T
             }
+            val annotation = clazz.getAnnotation(CacheBean::class.java)
+//            if(annotation.isList){
+//                (cache as CacheList<*>).clearRecord()
+//            }
             cache.call()
             if(!changed.contains(key)){
                 changed.add(key)
             }
-            val annotation = clazz.getAnnotation(CacheBean::class.java)
             notifyObserver(key, annotation.isList, cache)
             if(immediateMode && annotation.autoSync){
                 sync(cache, secondKey)
