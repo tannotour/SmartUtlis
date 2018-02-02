@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gaeaCoterieItemParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/gaeaCoterieItemHeadImg"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gaeaCoterieItemHeadImg"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/gaeaCoterieItemHeadImg"
+        android:textSize="16sp"
+        tool:text="tannotour" />
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tool:text="2018-01-31"
+        android:layout_alignBottom="@+id/gaeaCoterieItemHeadImg"
+        android:layout_alignStart="@+id/gaeaCoterieItemUserName" />
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gaeaCoterieItemHeadImg"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        tool:text="消息内容" />
+
+    <GridLayout
+        android:id="@+id/gaeaCoterieItemImgs"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/gaeaCoterieItemContent"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp" >
+
+        <ImageView
+            android:id="@+id/imgs0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/imgs8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:scaleType="centerCrop"
+            android:visibility="gone"/>
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gaeaCoterieItemImgs"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/ic_share_black_24dp"/>
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gaeaCoterieItemImgs"
+        android:layout_toStartOf="@+id/gaeaCoterieItemShare"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/ic_comment_black_24dp"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:textSize="12sp"
+        android:textColor="#d4d6d8"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemThumbUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gaeaCoterieItemImgs"
+        android:layout_toStartOf="@+id/gaeaCoterieItemComment"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/ic_thumb_up_black_24dp"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:textSize="12sp"
+        android:textColor="#d4d6d8"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/gaeaCoterieItemAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        tool:text="四川省成都市成华区二仙桥东三路1号"
+        android:layout_alignTop="@+id/gaeaCoterieItemThumbUp"
+        android:layout_alignBottom="@+id/gaeaCoterieItemThumbUp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/gaeaCoterieItemThumbUp"
+        android:layout_marginStart="12dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/gaeaCoterieItemAddress"
+        android:background="@color/colorGray"
+        android:id="@+id/view" />
+</RelativeLayout>
