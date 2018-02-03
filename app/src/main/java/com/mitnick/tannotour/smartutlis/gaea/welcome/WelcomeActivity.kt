@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.app.Activity
 import com.mitnick.tannotour.smartutlis.R
+import com.mitnick.tannotour.smartutlis.gaea.main.GaeaMainActivity2
 
 
 /**
@@ -23,7 +24,7 @@ class WelcomeActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gaea_welcome_activity)
         verifyStoragePermissions(this)
-        startActivity(Intent(this, GaeaMainActivity::class.java))
+        startActivity(Intent(this, GaeaMainActivity2::class.java))
         finish()
     }
 
