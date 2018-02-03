@@ -32,25 +32,25 @@ class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs {
         }
         gaeaDynamicContent.adapter = adapter
         gaeaDynamicTypeTab.setupWithViewPager(gaeaDynamicContent)
-        Handler().postDelayed(
-                {
-                    refreshFieldDynamic(
-                            clear = true,
-                            setParams = {
-                                pages = 1
-                            }
-                    ){
-                        when(it){
-                            STATE.SUCCESS -> {
-                                toast("获取现场事件成功")
-                            }
-                            STATE.FAILED -> {
-                                toast("获取现场事件失败")
-                            }
-                        }
-                    }
-                },
-                2000
-        )
+//        Handler().postDelayed(
+//                {
+//                    refreshFieldDynamic(
+//                            clear = true,
+//                            setParams = {
+//                                pages = 1
+//                            }
+//                    ){
+//                        when(it){
+//                            STATE.SUCCESS -> {
+//                                toast("获取现场事件成功")
+//                            }
+//                            STATE.FAILED -> {
+//                                toast("获取现场事件失败")
+//                            }
+//                        }
+//                    }
+//                },
+//                2000
+//        )
     }
 }

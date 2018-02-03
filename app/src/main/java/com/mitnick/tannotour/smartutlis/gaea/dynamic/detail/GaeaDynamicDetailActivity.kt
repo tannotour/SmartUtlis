@@ -71,8 +71,8 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
             )
         }
         params.below(gaeaDynamicDetailContent)
-        params.marginStart = 12
-        params.marginEnd = 12
+        params.marginStart = 24
+        params.marginEnd = 24
         gaeaDynamicDetailImgs.layoutParams = params
         val childCount = gaeaDynamicDetailImgs.childCount
         data.pictures.split(",").filter {

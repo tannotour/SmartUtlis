@@ -29,6 +29,7 @@ class FieldDynamicPresenter: INet {
             url = "${HttpHost.API_URL}liveevent/v1/list"
             params.put("page", pages.toString())
             params.put("size", size.toString())
+            params.put("type", type)
         }.convert(FieldDynamicNetBean::class.java){
             it.body?.isOk == true
         }?.body?.data?.filter {
