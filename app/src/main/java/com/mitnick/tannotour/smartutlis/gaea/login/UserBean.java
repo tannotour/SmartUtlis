@@ -30,6 +30,12 @@ public class UserBean {
     private String password;
     private String userName;
     private String uuid;
+    private String livePostNum = "0";
+    private String focusNum = "0";
+    private String loverNum = "0";
+    private String liveEventNum = "0";
+    private String collectionNum = "0";
+
     private boolean isLogined = false;
 
     public String getDeviceId() {
@@ -102,6 +108,46 @@ public class UserBean {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getLivePostNum() {
+        return livePostNum;
+    }
+
+    public void setLivePostNum(String livePostNum) {
+        this.livePostNum = livePostNum;
+    }
+
+    public String getFocusNum() {
+        return focusNum;
+    }
+
+    public void setFocusNum(String focusNum) {
+        this.focusNum = focusNum;
+    }
+
+    public String getLoverNum() {
+        return loverNum;
+    }
+
+    public void setLoverNum(String loverNum) {
+        this.loverNum = loverNum;
+    }
+
+    public String getLiveEventNum() {
+        return liveEventNum;
+    }
+
+    public void setLiveEventNum(String liveEventNum) {
+        this.liveEventNum = liveEventNum;
+    }
+
+    public String getCollectionNum() {
+        return collectionNum;
+    }
+
+    public void setCollectionNum(String collectionNum) {
+        this.collectionNum = collectionNum;
     }
 
     public boolean isLogined() {
