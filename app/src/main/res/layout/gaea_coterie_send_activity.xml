@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#e9e9e9">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/coterieSendHead"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:text="发表动态"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:id="@+id/textView"
+            android:textColor="#f4f4f4" />
+
+        <ImageView
+            android:id="@+id/coterieSendCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:tint="@color/backGround"/>
+
+        <ImageView
+            android:id="@+id/coterieSendSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:padding="8dp"
+            android:src="@drawable/send" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/coterieSend_layout_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/coterieSendHead"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff" >
+
+        <EditText
+            android:id="@+id/coterieSendContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:textCursorDrawable="@drawable/cursor"
+            android:ems="10"
+            android:hint="说点什么吧"
+            android:background="#00000000"
+            android:minLines="3"
+            android:maxLines="5"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:paddingBottom="16dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/coterieSendImg"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/coterieSendContent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_height="258dp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/coterieSendImg"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/coterieSendAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:hint="位置"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textColor="#aa000000"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

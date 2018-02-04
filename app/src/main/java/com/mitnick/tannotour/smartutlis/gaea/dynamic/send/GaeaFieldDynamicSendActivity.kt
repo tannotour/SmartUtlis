@@ -163,7 +163,7 @@ class GaeaFieldDynamicSendActivity: AppCompatActivity(), GaeaDynamicSendFuncs, C
             if(tip.isEmpty()){
                 val tipDialog = TipDialog.showTip(send, QMUITipDialog.Builder.ICON_TYPE_LOADING, "正在上传", autoDismiss = false)
                 sendFieldDynamic(
-                        false,
+                        true,
                         userId,
                         sendContent.text.toString(),
                         myLocation.text.toString(),
@@ -389,15 +389,15 @@ class GaeaFieldDynamicSendActivity: AppCompatActivity(), GaeaDynamicSendFuncs, C
     }
 
     private fun checkInput(): String{
-        if(fieldDynamicSendLevel.text.toString().isEmpty()){
-//            toast("请选择事件级别")
-            return "请选择事件级别"
+        if(fieldDynamicSendEventType.text.toString().isEmpty()){
+//            toast("请选择事件类别")
+            return "请选择事件类别"
         }else if(fieldDynamicSendTime.text.toString().isEmpty()){
 //            toast("请选择预计持续时间")
             return "请选择预计持续时间"
-        }else if(fieldDynamicSendEventType.text.toString().isEmpty()){
-//            toast("请选择事件类别")
-            return "请选择事件类别"
+        }else if(fieldDynamicSendLevel.text.toString().isEmpty()){
+//            toast("请选择事件级别")
+            return "请选择事件程度"
         }else if(sendContent.text.toString().isEmpty()){
 //            toast("请输入现场内容")
             return "请输入现场内容"
