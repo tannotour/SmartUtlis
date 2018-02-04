@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.cache.CacheKey
 import com.mitnick.tannotour.easylib.cache.value.CacheValueObserver
 import com.mitnick.tannotour.smartutlis.R
@@ -82,6 +83,11 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Cache.addObserver(this)
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Cache.removeObserver(this)
     }
 }
