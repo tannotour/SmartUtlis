@@ -14,5 +14,6 @@ class NetParamsPOST: NetParams() {
     /* 提交的对象的值 */
     var dataObj: Any? = null
     /* 提交的文件路径列表 */
-    val files: Map<FileType, String> = HashMap()
+//    val files: HashMap<FileType, String> = HashMap()
+    val files: HashMap<String, FileType> = HashMap()
 }

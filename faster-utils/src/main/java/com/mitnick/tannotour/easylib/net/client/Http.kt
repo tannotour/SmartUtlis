@@ -49,7 +49,7 @@ class Http private constructor(
             data: HashMap<String, String> = HashMap(),
             dataKey: String = "data",
             dataObj: Any? = null,
-            files: Map<FileType, String> = HashMap()
+            files: Map<String, FileType> = HashMap()
     ): com.mitnick.tannotour.easylib.net.Response<T>{
         return httpClient.post(
                 url, headers, data, dataKey, dataObj, files

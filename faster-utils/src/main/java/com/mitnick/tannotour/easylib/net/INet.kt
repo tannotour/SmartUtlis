@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.easylib.net
 
 import android.app.DownloadManager
+import android.content.Context
 import android.net.Uri
 import com.mitnick.tannotour.easylib.net.client.Http
 import com.mitnick.tannotour.easylib.net.client.HttpClient
@@ -8,6 +9,7 @@ import com.mitnick.tannotour.easylib.net.client.OkhttpClient
 import com.mitnick.tannotour.easylib.net.params.DownloadParams
 import com.mitnick.tannotour.easylib.net.params.NetParams
 import com.mitnick.tannotour.easylib.net.params.NetParamsPOST
+import okhttp3.RequestBody
 
 
 /**

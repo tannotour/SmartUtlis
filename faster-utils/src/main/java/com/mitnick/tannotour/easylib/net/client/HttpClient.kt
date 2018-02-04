@@ -28,6 +28,6 @@ interface HttpClient {
             data: HashMap<String, String> = HashMap(),
             dataKey: String = "data",
             dataObj: Any? = null,
-            files: Map<FileType, String> = HashMap()
+            files: Map<String, FileType> = HashMap()
     ): Response<T>
 }
