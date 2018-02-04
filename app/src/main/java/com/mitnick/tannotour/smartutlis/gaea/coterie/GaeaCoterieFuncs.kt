@@ -2,7 +2,9 @@ package com.mitnick.tannotour.smartutlis.gaea.coterie
 
 import com.mitnick.tannotour.easylib.async.Funcs
 import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.async.error
 import com.mitnick.tannotour.easylib.async.task
+import com.mitnick.tannotour.smartutlis.gaea.coterie.bean.CoterieCacheBean
 
 /**
  * Created by mitnick on 2018/2/2.
@@ -18,7 +20,7 @@ interface GaeaCoterieFuncs: Funcs {
             clear: Boolean = false,
             type: String,
             setParams: (GaeaCoteriePresenter.() -> Unit)? = null,
-            call:((state: STATE) -> Unit)? = null
+            call:((state: STATE, errorMsg: String) -> Unit)? = null
     ) = task(
             GaeaCoteriePresenter::class.java,
             once,
@@ -29,6 +31,6 @@ interface GaeaCoterieFuncs: Funcs {
                 refreshCoterie(clear, type)
             }
     ){
-        call?.invoke(it)
+        call?.invoke(it, error(CoterieCacheBean::class.java, true))
     }
 }

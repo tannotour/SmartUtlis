@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
+import com.mitnick.tannotour.easylib.async.STATE
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.cache.CacheKey
 import com.mitnick.tannotour.easylib.cache.CacheList
@@ -18,6 +19,8 @@ import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.coterie.GaeaCoterieFuncs
 import com.mitnick.tannotour.smartutlis.gaea.coterie.bean.CoterieBean
 import com.mitnick.tannotour.smartutlis.gaea.coterie.bean.CoterieCacheBean
+import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.gaea_coterie_item_layout.view.*
 import org.jetbrains.anko.below
 import java.util.*
@@ -31,6 +34,7 @@ import java.util.*
 class GaeaCoterieListAdapter(val type: String = "", val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, CacheListValueObserver, GaeaCoterieFuncs {
 
     private val datas: LinkedList<CoterieBean> = LinkedList()
+    private var noMore = false
 
     init {
         recyclerView.adapter = this
@@ -123,21 +127,28 @@ class GaeaCoterieListAdapter(val type: String = "", val recyclerView: RecyclerVi
                     imageView.visibility = View.GONE
                 }
             }
-//            if (position == datas.size-1){
-//                /* 加载更多 */
-//                refreshFieldDynamic(
-//                        type = type
-//                ){
-//                    when(it){
-//                        STATE.SUCCESS -> {
-//                            holder.itemView.context.toast("加载更多现场事件成功")
-//                        }
-//                        STATE.FAILED -> {
-//                            holder.itemView.context.toast("加载更多现场事件失败")
-//                        }
-//                    }
-//                }
-//            }
+            if (position == datas.size-1 && !noMore){
+                /* 加载更多 */
+                refreshCoterie(
+                        clear = false,
+                        type = type,
+                        setParams = {}
+                ){ state, error ->
+                    when(state){
+                        STATE.SUCCESS -> {
+//                            toast("获取动态成功")
+                        }
+                        STATE.FAILED -> {
+                            if(error == "NO_MORE"){
+                                noMore = true
+                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "没有更多内容了")
+                            }else{
+                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "获取动态失败，请稍后刷新再试")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

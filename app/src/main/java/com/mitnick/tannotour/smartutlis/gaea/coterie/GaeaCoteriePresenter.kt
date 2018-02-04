@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.smartutlis.gaea.coterie
 
 import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.async.writeError
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.net.INet
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
@@ -18,7 +19,7 @@ class GaeaCoteriePresenter: INet {
     var size = 10
 
     fun refreshCoterie(clear: Boolean = false, type: String): STATE{
-        val state: STATE = STATE.SUCCESS
+        var state: STATE = STATE.FAILED
         if(clear){
             Cache.use(CoterieCacheBean::class.java, type, false){
                 clear()
@@ -35,26 +36,17 @@ class GaeaCoteriePresenter: INet {
         }.convert(CoterieNetBean::class.java){
             it.body?.ok == true
         }?.body?.data
-        Cache.use(CoterieCacheBean::class.java, type, false){
-            result?.forEach {
-                add(it)
+        if(result != null && result.count() > 0 && result.count() == size){
+            Cache.use(CoterieCacheBean::class.java, type, false){
+                state = STATE.SUCCESS
+                result.forEach {
+                    add(it)
+                }
             }
+        }else{
+            /* 下次没有更多了 */
+            writeError(CoterieCacheBean::class.java, "NO_MORE")
         }
-
-//        get<CoterieNetBean> {
-//            url = when(type){
-//                "关注" -> "${HttpHost.API_URL}livepost/v1/all"
-//                else -> "${HttpHost.API_URL}livepost/v1/all"
-//            }
-//            params.put("page", pages.toString())
-//            params.put("size", size.toString())
-//        }.convert(CoterieNetBean::class.java){
-//            it.body?.ok == true
-//        }?.body?.data?.forEach {
-//            Cache.use(CoterieCacheBean::class.java, type, false){
-//                add(it)
-//            }
-//        }
         pages += 1
         return state
     }

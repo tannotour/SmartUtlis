@@ -48,9 +48,9 @@ class GaeaCoterieContentFragment: Fragment(), GaeaCoterieFuncs {
                     setParams = {
                         pages = 1
                     }
-            ){
+            ){ state, _ ->
                 gaeaCoterieContentSwipeRefreshLayout.isRefreshing = false
-                when(it){
+                when(state){
                     STATE.SUCCESS -> {
                         toast("获取动态成功")
                     }

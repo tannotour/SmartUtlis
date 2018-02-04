@@ -3,6 +3,7 @@ package com.mitnick.tannotour.smartutlis.gaea.coterie.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**

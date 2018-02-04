@@ -92,6 +92,7 @@
         <activity android:name=".gaea.main.GaeaMainActivity2" />
         <activity android:name=".gaea.login.GaeaLoginActivity" />
         <activity android:name=".gaea.dynamic.send.GaeaFieldDynamicSendActivity" android:theme="@style/QMUITheme"/>
+        <activity android:name=".gaea.coterie.send.GaeaCoterieSendActivity" android:theme="@style/QMUITheme" />
     </application>
 
 </manifest>
