@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.smartutlis.test
 
 import android.app.Application
+import com.baidu.mapapi.SDKInitializer
 import com.mitnick.tannotour.easylib.LibInit
 
 /**
@@ -11,5 +12,6 @@ class MyApp: Application() {
     override fun onCreate() {
         super.onCreate()
         LibInit.appInit(this)
+        SDKInitializer.initialize(applicationContext)
     }
 }
