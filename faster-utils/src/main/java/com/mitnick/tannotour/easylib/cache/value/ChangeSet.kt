@@ -9,6 +9,7 @@ class ChangeSet(var type: TYPE, var positionStart: Int = -1, var positionEnd: In
         ADD,
         SET,
         REMOVE,
-        CLEAR
+        CLEAR,
+        UPDATE_CHANGES
     }
 }

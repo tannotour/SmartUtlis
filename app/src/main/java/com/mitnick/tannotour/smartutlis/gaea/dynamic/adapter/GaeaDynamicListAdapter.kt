@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.smartutlis.gaea.dynamic.adapter
 
 import android.content.Intent
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,7 +35,7 @@ import java.util.*
  */
 
 @CacheKey(keys = arrayOf(FieldDynamicCacheBean::class))
-class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener , CacheListValueObserver, FieldDynamicFuncs {
+class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerView, var visiablePosition: Int = 0, var top: Int = 0): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener , CacheListValueObserver, FieldDynamicFuncs {
 
     val datas: LinkedList<FieldDynamicBean> = LinkedList()
 
@@ -71,6 +72,7 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                 }
             }
         }
+        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(visiablePosition, top)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
