@@ -13,7 +13,7 @@ import org.jetbrains.anko.uiThread
 interface CacheListValueObserver: CacheObserver {
 
     fun onUpdate(key: String, cache: CacheList<*>){
-        cache.updateChanges()
+//        cache.updateChanges()
         if(Looper.myLooper() == Looper.getMainLooper()){
             onNotify(Class.forName(key.split("-").first()), cache)
         }else{

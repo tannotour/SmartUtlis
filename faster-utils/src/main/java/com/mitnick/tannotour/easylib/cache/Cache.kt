@@ -8,6 +8,7 @@ import com.mitnick.tannotour.easylib.cache.disk.Disk
 import com.mitnick.tannotour.easylib.cache.disk.DiskCache
 import com.mitnick.tannotour.easylib.cache.value.CacheListValueObserver
 import com.mitnick.tannotour.easylib.cache.value.CacheValueObserver
+import com.mitnick.tannotour.easylib.cache.value.ChangeSet
 import org.jetbrains.anko.doAsync
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -99,6 +100,15 @@ object Cache {
                         cache = Class.forName(it.jvmName).newInstance()
                     }else{
                         cache = Gson().fromJson(json, Class.forName(it.jvmName))
+//                        if(cache is List<*>){
+//                            (cache as CacheList<*>).changes.add(
+//                                    ChangeSet(
+//                                            ChangeSet.TYPE.INIT,
+//                                            0,
+//                                            cache.count()-1
+//                                    )
+//                            )
+//                        }
                     }
                     caches.put(key, cache)
                 }else{
@@ -108,7 +118,7 @@ object Cache {
                 if(anno == null){
                     Log.e(TAG, "无法获取初始化Cache(${cache::class.java.name})数据，绑定时初始化失败，请添加CacheKey注解。")
                 }else{
-                    notifyObserver(key, anno.isList, cache, observer)
+                    notifyObserver(key, anno.isList, cache, observer, true)
                 }
             }
         }
@@ -161,10 +171,13 @@ object Cache {
         }
     }
 
-    fun notifyObserver(key: String, isList: Boolean, cache: Any, observer: CacheObserver){
+    fun notifyObserver(key: String, isList: Boolean, cache: Any, observer: CacheObserver, init: Boolean = false){
         if(isList){
             val cacheTrue = (cache as CacheList<*>)
             (observer as CacheListValueObserver).onUpdate(key, cacheTrue.clone() as CacheList<*>)
+            if(init){
+                cache.clearRecord()
+            }
         }else{
             (observer as CacheValueObserver).onUpdate(key, cache)
         }
