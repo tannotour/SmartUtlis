@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f4f4f4"
+    android:layout_height="86dp"
+    android:layout_margin="0.5dp"
+    android:layout_width="86dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/shuoshuo_add_img"
+        android:padding="16dp"
+        android:id="@+id/shuoshuo_item_img_show"
+        android:elevation="2dp"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/shuoshuo_item_img_del"
+        android:cropToPadding="false"
+        android:padding="2dp"
+        android:background="#80000000"
+        android:tint="#f4f4f4"
+        android:elevation="3dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/shuoshuo_del_ico" />
+</RelativeLayout>

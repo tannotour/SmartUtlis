@@ -19,6 +19,7 @@ import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.coterie.GaeaCoterieFragment
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.GaeaDynamicFragment
+import com.mitnick.tannotour.smartutlis.gaea.dynamic.send.GaeaFieldDynamicSendActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.GaeaMeFragment
@@ -72,7 +73,14 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
         switchFragment(0)
         gaeaMain2Fab.setOnClickListener { view ->
             if(isLogined){
+                when(oldIndex){
+                    0 -> {
+                        startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
+                    }
+                    1 -> {
 
+                    }
+                }
             }else{
                 Snackbar.make(view, "还未登录，登录后可体验更多功能。", Snackbar.LENGTH_LONG)
                         .setAction(

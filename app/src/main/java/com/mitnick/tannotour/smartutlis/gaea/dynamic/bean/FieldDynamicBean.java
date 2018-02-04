@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,8 +43,8 @@ public class FieldDynamicBean implements Parcelable {
     private String pictures;
     private UserBean user;
     private String userId;
-    private List<CommentsBean> comments;
-    private List<ThumbsBean> thumbs;
+    private List<CommentsBean> comments = new LinkedList<>();
+    private List<ThumbsBean> thumbs = new LinkedList<>();
 
     public String getAddress() {
         return address;

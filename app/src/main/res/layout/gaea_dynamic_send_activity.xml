@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/headerImg"
+        android:background="@color/colorPrimary"
+        android:padding="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="我在现场"
+            android:textColor="@color/backGround"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:tint="@color/backGround"
+            android:layout_alignParentStart="true" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/locate"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@drawable/ic_location_my"-->
+            <!--android:tint="@color/backGround"-->
+            <!--android:layout_alignParentEnd="true" />-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mapViewParent"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:layout_below="@+id/headerImg">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="164dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_location"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="发 送"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mapViewParent"
+        android:layout_above="@+id/send">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/myLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
+                tools:text="可拖动定位到具体位置" />
+
+            <RelativeLayout
+                android:id="@+id/sendItem0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="事件类别"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_dark"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/fieldDynamicSendEventType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="12"
+                    android:textSize="12sp"
+                    android:textColor="#8a8a8a"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sendItem1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预计持续时间"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_dark"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/fieldDynamicSendTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#8a8a8a"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sendItem2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="程度"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_dark"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/fieldDynamicSendLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#8a8a8a"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/sendContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:inputType="textMultiLine"
+                android:maxLines="12"
+                android:gravity="top|start"
+                android:background="@color/color_light"
+                android:textCursorDrawable="@drawable/cursor"
+                android:textSize="14sp"
+                android:hint="输入您的描述"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/sendImgs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -34,9 +34,9 @@ import java.util.*
  */
 
 @CacheKey(keys = arrayOf(FieldDynamicCacheBean::class))
-class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, CacheListValueObserver, FieldDynamicFuncs {
+class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener , CacheListValueObserver, FieldDynamicFuncs {
 
-    private val datas: LinkedList<FieldDynamicBean> = LinkedList()
+    val datas: LinkedList<FieldDynamicBean> = LinkedList()
 
     init {
         recyclerView.adapter = this
@@ -87,13 +87,22 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
             time.text = data.ctime
             content.text = data.message
             location.text = data.address
-            thumbupNum.text = data.thumbs.filter {
-                it.type == "0"
-            }.count().toString()
-            thumbdownNum.text = data.thumbs.filter {
-                it.type == "1"
-            }.count().toString()
-            commentNum.text = data.comments.size.toString()
+            if(data.thumbs != null && data.thumbs.isNotEmpty()){
+                thumbupNum.text = data.thumbs.filter {
+                    it.type == "0"
+                }.count().toString()
+                thumbdownNum.text = data.thumbs.filter {
+                    it.type == "1"
+                }.count().toString()
+            }else{
+                thumbupNum.text = "0"
+                thumbdownNum.text = "0"
+            }
+            if(data.comments != null){
+                commentNum.text = data.comments.size.toString()
+            }else{
+                commentNum.text = "0"
+            }
             val size = data.pictures.split(",").filter {
                 it.isNotEmpty()
             }.count()
@@ -128,6 +137,7 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                     imageView.visibility = View.GONE
                 }
             }
+
 //            if (position == datas.size-1){
 //                /* 加载更多 */
 //                refreshFieldDynamic(
