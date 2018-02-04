@@ -18,6 +18,7 @@ import com.mitnick.tannotour.easylib.cache.value.CacheValueObserver
 import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.coterie.GaeaCoterieFragment
+import com.mitnick.tannotour.smartutlis.gaea.coterie.send.GaeaCoterieSendActivity
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.GaeaDynamicFragment
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.send.GaeaFieldDynamicSendActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
@@ -78,7 +79,7 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
                     }
                     1 -> {
-
+                        startActivity(Intent(this, GaeaCoterieSendActivity::class.java))
                     }
                 }
             }else{
