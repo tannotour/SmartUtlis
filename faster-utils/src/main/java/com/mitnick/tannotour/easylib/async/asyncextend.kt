@@ -1,5 +1,6 @@
 package com.mitnick.tannotour.easylib.async
 
+import com.mitnick.tannotour.easylib.net.INet
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -55,11 +56,15 @@ fun <T: Any> Funcs.task(clazz: Class<T>, once: Boolean = false, doJob: T.() -> S
     }
 }
 
-fun <T: Any> Funcs.writeError(clazz: Class<T>, errorMsg: String){
+//fun <T: Any> Funcs.writeError(clazz: Class<T>, errorMsg: String){
+//    Async.errors.put(clazz.name, errorMsg)
+//}
+
+fun <T: Any> INet.writeError(clazz: Class<T>, errorMsg: String){
     Async.errors.put(clazz.name, errorMsg)
 }
 
-fun <T: Any> Any.error(clazz: Class<T>, autoClear: Boolean = true): String{
+fun <T: Any> Funcs.error(clazz: Class<T>, autoClear: Boolean = true): String{
     if(Async.errors.containsKey(clazz.name)){
         val error = Async.errors[clazz.name]!!
         if(autoClear){
