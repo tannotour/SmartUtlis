@@ -11,9 +11,11 @@ import android.view.View
 import android.widget.*
 import com.bumptech.glide.Glide
 import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicBean
+import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import kotlinx.android.synthetic.main.gaea_dynamic_detail_activity.*
 import org.jetbrains.anko.below
 import org.jetbrains.anko.toast
@@ -103,6 +105,7 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
                         drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
                         gaeaDynamicDetailFuncThumbUp.setCompoundDrawables(null, drawable, null, null)
                         gaeaDynamicDetailFuncThumbUp.text = (gaeaDynamicDetailFuncThumbUp.text.toString().toInt() + 1).toString()
+                        gaeaDynamicDetailThumbs.text = gaeaDynamicDetailThumbs.text.toString() + "," + (Cache.get(UserBean::class.java).clone() as UserBean).userName
                     }
                     STATE.FAILED -> {
                         toast("点赞失败")

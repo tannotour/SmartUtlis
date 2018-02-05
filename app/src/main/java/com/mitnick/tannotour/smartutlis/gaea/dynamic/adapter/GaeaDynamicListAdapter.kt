@@ -72,7 +72,11 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                 }
             }
         }
-        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(visiablePosition, top)
+        if(visiablePosition != 0){
+            (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(visiablePosition, top)
+            visiablePosition = 0
+            top = 0
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

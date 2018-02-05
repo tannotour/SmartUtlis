@@ -287,6 +287,28 @@ object Cache {
             }
         }
     }
+
+    fun <T: Any> get(clazz: Class<out T>, secondKey: String = ""): T{
+        if(!clazz.isAnnotationPresent(CacheBean::class.java)){
+            throw Exception(clazz.name + " 缓存数据类必须使用CacheBean注解")
+        }
+        val cache: T
+        val key = clazz.name + "-" + secondKey
+        if(key.isEmpty()){
+            throw Exception(clazz.name + " CacheBean(key)不可为空")
+        }
+        if(!caches.containsKey(key)){
+            val json = disk.readFromDisk(key)
+            if(json == null || json.isEmpty()){
+                cache = clazz.newInstance()
+            }else{
+                cache = Gson().fromJson(json, clazz)
+            }
+        }else{
+            cache = caches[key] as T
+        }
+        return cache
+    }
 }
 
 

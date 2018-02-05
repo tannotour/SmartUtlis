@@ -43,4 +43,5 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }
