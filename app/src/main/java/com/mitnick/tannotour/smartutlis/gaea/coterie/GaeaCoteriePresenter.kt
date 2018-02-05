@@ -28,8 +28,8 @@ class GaeaCoteriePresenter: INet {
         }
         val result = get<CoterieNetBean> {
             url = when(type){
-                "关注" -> "${HttpHost.API_URL}livepost/v1/all"
-                else -> "${HttpHost.API_URL}livepost/v1/all"
+                "关注" -> "${HttpHost.API_URL}livepost/v1/list"
+                else -> "${HttpHost.API_URL}livepost/v1/list"
             }
             params.put("page", pages.toString())
             params.put("size", size.toString())
