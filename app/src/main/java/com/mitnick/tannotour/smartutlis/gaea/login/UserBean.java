@@ -10,7 +10,7 @@ import com.mitnick.tannotour.easylib.cache.CacheBean;
  * Description
  */
 
-@CacheBean(memoryResident = true, autoSync = false)
+@CacheBean(memoryResident = true)
 public class UserBean implements Parcelable, Cloneable {
 
     /**

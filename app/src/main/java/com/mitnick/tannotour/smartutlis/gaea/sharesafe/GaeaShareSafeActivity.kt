@@ -43,7 +43,9 @@ class GaeaShareSafeActivity: AppCompatActivity() {
             startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
         }
         shareSafeToMonitor.setOnClickListener {
-            startActivity(Intent(this, GaeaMagneticMonitorActivity::class.java))
+            val intent = Intent(this, GaeaMagneticMonitorActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
         }
         shareSafeToHelp.setOnClickListener {
             toast("暂未开发")

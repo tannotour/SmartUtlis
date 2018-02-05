@@ -9,6 +9,12 @@ import okhttp3.*
 import java.io.File
 import java.util.HashMap
 import okhttp3.OkHttpClient
+import okhttp3.Cookie
+import android.R.attr.host
+
+
+
+
 
 
 
@@ -18,26 +24,25 @@ import okhttp3.OkHttpClient
  */
 object OkhttpClient: HttpClient {
 
-//    private var okHttpClient: OkHttpClient = OkHttpClient()
-
-//    init {
-//        val builder = OkHttpClient.Builder()
-//        builder.addInterceptor(
-//                Okhttp3LoggingInterceptor(
-//                        Okhttp3LoggingInterceptor.Logger { message ->
-//                            Log.e("OkhttpClient", message)
-//                        }
-//                ).setLevel(Okhttp3LoggingInterceptor.Level.BODY)
-//        )
-//        okHttpClient = builder.build()
-//    }
-
     private var okHttpClient: OkHttpClient = OkHttpClient.Builder().addInterceptor(
             Okhttp3LoggingInterceptor(
                     Okhttp3LoggingInterceptor.Logger { message ->
                         Log.e("OkhttpClient", message)
                     }
             ).setLevel(Okhttp3LoggingInterceptor.Level.BODY)
+    ).cookieJar(
+            object : CookieJar{
+                private val cookieStore = HashMap<String, MutableList<Cookie>>()
+                override fun saveFromResponse(url: HttpUrl, cookies: MutableList<Cookie>) {
+                    cookieStore.put(url.host(), cookies)
+                }
+
+                override fun loadForRequest(url: HttpUrl): MutableList<Cookie> {
+                    val cookies = cookieStore[url.host()]
+                    return cookies ?: ArrayList<Cookie>()
+                }
+
+            }
     ).build()
 
     override fun <T> get(url: String, headers: HashMap<String, String>): Response<T> {

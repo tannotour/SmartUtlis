@@ -1,44 +1,36 @@
 package com.mitnick.tannotour.smartutlis.gaea.magnetic
 
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.mitnick.tannotour.smartutlis.R
-import kotlinx.android.synthetic.main.gaea_magnetic_monitor_activity.*
-import android.R.attr.gravity
-import android.hardware.SensorManager
-import android.util.Log
-import android.widget.TextView
-import android.R.attr.gravity
-import android.R.attr.gravity
-import android.R.attr.gravity
-import android.graphics.Color
-import android.os.Handler
-import android.os.Message
 import android.view.View
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
-import java.util.*
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import android.graphics.Color.parseColor
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.Legend
-import android.support.v4.accessibilityservice.AccessibilityServiceInfoCompat.getDescription
-
-
-
-
+import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.smartutlis.R
+import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
+import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import kotlinx.android.synthetic.main.gaea_magnetic_monitor_activity.*
+import org.jetbrains.anko.toast
+import java.util.*
 
 
 /**
  * Created by mitnick on 2018/2/5.
  * Description
  */
-class GaeaMagneticMonitorActivity: AppCompatActivity(), SensorEventListener {
+class GaeaMagneticMonitorActivity: AppCompatActivity(), GaeaMagneticFuncs, SensorEventListener {
 
+    private lateinit var user: UserBean
     private lateinit var sensorManager: SensorManager
     //记录rotationMatrix矩阵值
     private var r = FloatArray(9)
@@ -53,7 +45,14 @@ class GaeaMagneticMonitorActivity: AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gaea_magnetic_monitor_activity)
+        QMUIDialog.MessageDialogBuilder(this)
+                .setTitle("提示")
+                .setMessage("使用前请先按照画倒八字方法校准手机")
+                .addAction("确定") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         init()
+        user = intent.getParcelableExtra<UserBean>("user")
     }
 
     override fun onPause() {
@@ -75,9 +74,25 @@ class GaeaMagneticMonitorActivity: AppCompatActivity(), SensorEventListener {
             magneticMonitorClock.postDelayed(handler,1000)
         }
         magneticMonitorResultText.setOnClickListener {
-            magneticMonitorResultText.visibility = View.GONE
-            magneticMonitorChart.visibility = View.GONE
-            magneticMonitorStartButton.visibility = View.VISIBLE
+            val tip = TipDialog.showTip(magneticMonitorResultText, QMUITipDialog.Builder.ICON_TYPE_LOADING, "正在上传", autoDismiss = false)
+            addScore(
+                    true,
+                    user,
+                    "2"
+            ){
+                when(it){
+                    STATE.SUCCESS -> {
+                        toast("上传成功，获得3积分")
+                    }
+                    STATE.FAILED -> {
+                        toast("上传失败")
+                    }
+                }
+                tip.dismiss()
+                magneticMonitorResultText.visibility = View.GONE
+                magneticMonitorChart.visibility = View.GONE
+                magneticMonitorStartButton.visibility = View.VISIBLE
+            }
         }
         magneticMonitorCancel.setOnClickListener { finish() }
     }

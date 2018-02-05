@@ -11,7 +11,14 @@ import android.app.Activity
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.cache.Cache
+import com.mitnick.tannotour.easylib.cache.CacheKey
+import com.mitnick.tannotour.easylib.cache.value.CacheValueObserver
 import com.mitnick.tannotour.smartutlis.R
+import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
+import com.mitnick.tannotour.smartutlis.gaea.login.GaeaUserFuncs
+import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.main.GaeaMainActivity2
 
 
@@ -19,7 +26,8 @@ import com.mitnick.tannotour.smartutlis.gaea.main.GaeaMainActivity2
  * Created by mitnick on 2018/1/29.
  * Description
  */
-class WelcomeActivity: AppCompatActivity() {
+
+class WelcomeActivity: AppCompatActivity(), GaeaUserFuncs {
 
     private val REQUEST_EXTERNAL_STORAGE = 1
     private val PERMISSIONS_STORAGE = arrayOf("android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE")
@@ -28,9 +36,30 @@ class WelcomeActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.gaea_welcome_activity)
-        verifyStoragePermissions(this)
-        startActivity(Intent(this, GaeaMainActivity2::class.java))
-        finish()
+        val user = Cache.get(UserBean::class.java)
+        if(user.isLogined){
+            login(
+                    phone = user.phone,
+                    password = user.password
+            ){
+                when(it){
+                    STATE.SUCCESS -> {
+                        startActivity(Intent(this, GaeaMainActivity2::class.java))
+                        finish()
+                    }
+                    else -> {
+                        startActivity(Intent(this, GaeaLoginActivity::class.java))
+                        finish()
+                    }
+                }
+            }
+        }else{
+            startActivity(Intent(this, GaeaLoginActivity::class.java))
+            finish()
+        }
+//        verifyStoragePermissions(this)
+//        startActivity(Intent(this, GaeaMainActivity2::class.java))
+//        finish()
     }
 
     fun verifyStoragePermissions(activity: Activity) {
