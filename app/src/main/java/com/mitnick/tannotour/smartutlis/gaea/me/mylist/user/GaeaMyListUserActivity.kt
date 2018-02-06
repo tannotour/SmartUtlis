@@ -26,7 +26,10 @@ class GaeaMyListUserActivity: AppCompatActivity(), GaeaMyListUserFuncs {
         setContentView(R.layout.gaea_my_list_activity)
         type = intent.getStringExtra("type")
         user = intent.getParcelableExtra<UserBean>("user")
-        myListTitle.text = "我的$type"
+        myListTitle.text = when(type){
+            "个人排名" -> "个人英雄榜"
+            else -> "我的$type"
+        }
         myListBack.setOnClickListener { finish() }
         val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
@@ -36,7 +39,7 @@ class GaeaMyListUserActivity: AppCompatActivity(), GaeaMyListUserFuncs {
         adapter = GaeaMyListUserAdapter(user.uuid, type, myListRecyclerView)
         val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
         getMyListUser(
-                clear = false,
+                clear = true,
                 type = type
         ){ state, _ ->
             tip.dismiss()

@@ -30,7 +30,8 @@ class GaeaMyListUserPresenter: INet {
         val result = get<MyListUserNetBean> {
             url = when(type){
                 "关注" -> "${HttpHost.API_URL}/v1/user/myFollowed"
-                else -> "${HttpHost.API_URL}/v1/user/myFollower"
+                "粉丝" -> "${HttpHost.API_URL}/v1/user/myFollower"
+                else -> "${HttpHost.API_URL}v1/user/rate/top10"
             }
         }.convert(MyListUserNetBean::class.java){
             it.body?.ok == true

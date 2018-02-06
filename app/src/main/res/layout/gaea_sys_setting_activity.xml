@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/gaeaSysSettingHeader"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/gaeaSysSettingBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:drawableEnd="@drawable/ic_chevron_left_black_24dp"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/backGround" />
+
+        <TextView
+            android:id="@+id/gaeaSysSettingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/backGround"
+            android:textSize="16sp"
+            android:text="系统设置" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:layout_below="@+id/gaeaSysSettingHeader"
+        android:layout_above="@+id/gaeaSysSettingLogout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/gaeaSysSettingPushItem"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingPushLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:text="消息推送"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/gaeaSysSettingSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:checked="true"
+                    android:gravity="center_vertical" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/bar_divider" />
+
+            <RelativeLayout
+                android:id="@+id/gaeaSysSettingBufferItem"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingBufferLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:text="清除缓存"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingBufferSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_vertical"
+                    android:text="0B"
+                    android:textColor="#a2a2a2"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/gaeaSysSettingUpdateItem"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingUpdateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:text="版本更新"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingUpdateDot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:gravity="center_vertical"
+                    android:textColor="#a2a2a2"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/gaeaSysSettingHelpItem"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingHelpLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:text="系统帮助"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingHelpArr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:gravity="center_vertical"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/gaeaSysSettingAboutItem"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingAboutLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:text="关于365"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/gaeaSysSettingAboutArr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+                    android:drawableTint="@color/colorGray"
+                    android:gravity="center_vertical"
+                    android:textColor="#a2a2a2"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/gaeaSysSettingLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="注销"
+        android:textColor="@color/bar_divider"
+        app:qmui_borderWidth="1dp"
+        app:qmui_borderColor="@color/bar_divider"
+        app:qmui_radius="4dp" />
+</RelativeLayout>

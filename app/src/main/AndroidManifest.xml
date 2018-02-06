@@ -97,6 +97,7 @@
         <activity android:name=".gaea.magnetic.GaeaMagneticMonitorActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.mylist.GaeaMyListActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.mylist.user.GaeaMyListUserActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.me.setting.GaeaSysSettingActivity" android:theme="@style/QMUITheme" />
     </application>
 
 </manifest>

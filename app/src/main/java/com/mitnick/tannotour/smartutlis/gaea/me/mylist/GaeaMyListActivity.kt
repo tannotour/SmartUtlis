@@ -36,7 +36,7 @@ class GaeaMyListActivity: AppCompatActivity(), GaeaMyListFuncs {
         adapter = GaeaMyListAdapter(user.uuid, type, myListRecyclerView)
         val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
         getMyList(
-                clear = false,
+                clear = true,
                 type = type,
                 userId = user.uuid
         ){ state, _ ->

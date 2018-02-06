@@ -17,6 +17,7 @@ import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.GaeaMyListActivity
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.user.GaeaMyListUserActivity
+import com.mitnick.tannotour.smartutlis.gaea.me.setting.GaeaSysSettingActivity
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
 import kotlinx.android.synthetic.main.gaea_me_fragment.*
 import org.jetbrains.anko.image
@@ -56,6 +57,12 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                         intent.putExtra("user", user)
                         startActivity(intent)
                     }
+                    meCollectionItem.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListActivity::class.java)
+                        intent.putExtra("type", "收藏")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
                     meFocus.setOnClickListener {
                         val intent = Intent(activity, GaeaMyListUserActivity::class.java)
                         intent.putExtra("type", "关注")
@@ -68,6 +75,24 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                         intent.putExtra("user", user)
                         startActivity(intent)
                     }
+                    meHeroicItem.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListUserActivity::class.java)
+                        intent.putExtra("type", "个人排名")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
+                    meCityRankItem.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListUserActivity::class.java)
+                        intent.putExtra("type", "城市安全系数排名")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
+                    meSetting.setOnClickListener {
+                        startActivity(Intent(activity, GaeaSysSettingActivity::class.java))
+                    }
+                    meSelfSettingItem.setOnClickListener {
+
+                    }
                 }else{
                     meHeaderImg.image = resources.getDrawable(R.mipmap.ic_launcher)
                     meUserName.text = user.userName
@@ -77,6 +102,27 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                     meLover.text = "粉丝\n0"
                     meFieldDynamicNum.text = "0"
                     meCollectionNum.text = "0"
+                    meShare.setOnClickListener {
+                        gotoLogin(meShare)
+                    }
+                    meFieldDynamicItem.setOnClickListener {
+                        gotoLogin(meFieldDynamicItem)
+                    }
+                    meCollectionItem.setOnClickListener {
+                        gotoLogin(meCollectionItem)
+                    }
+                    meFocus.setOnClickListener {
+                        gotoLogin(meFocus)
+                    }
+                    meLover.setOnClickListener {
+                        gotoLogin(meLover)
+                    }
+                    meHeroicItem.setOnClickListener {
+                        gotoLogin(meHeroicItem)
+                    }
+                    meCityRankItem.setOnClickListener {
+                        gotoLogin(meCityRankItem)
+                    }
                     meSetting.setOnClickListener {
                         gotoLogin(meSetting)
                     }

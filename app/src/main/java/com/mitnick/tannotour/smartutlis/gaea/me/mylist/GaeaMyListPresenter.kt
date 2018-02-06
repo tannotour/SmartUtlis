@@ -5,7 +5,6 @@ import com.mitnick.tannotour.easylib.async.writeError
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.net.INet
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
-import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.bean.MyListBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.bean.MyListCacheBean
 import java.util.*
@@ -30,7 +29,8 @@ class GaeaMyListPresenter: INet {
         val result = get<MyListNetBean> {
             url = when(type){
                 "现场" -> "${HttpHost.API_URL}liveevent/v1/user"
-                else -> "${HttpHost.API_URL}livepost/v1/user"
+                "分享" -> "${HttpHost.API_URL}livepost/v1/user"
+                else -> "${HttpHost.API_URL}v1/user/getCollection"
             }
             params.put("page", pages.toString())
             params.put("size", size.toString())
