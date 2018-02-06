@@ -19,4 +19,5 @@ public @interface CacheBean {
     String[] secondKeys() default {};
     boolean autoSync() default true;
     boolean memoryResident() default false;//常驻内存
+    boolean ramOnly() default false;//是否只存在于内存
 }

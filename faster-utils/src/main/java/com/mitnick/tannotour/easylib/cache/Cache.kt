@@ -25,6 +25,8 @@ object Cache {
     private val caches: ConcurrentHashMap<String, Any> = ConcurrentHashMap()
     private val needUpdateToDisk: LinkedList<String> = LinkedList()
     private val changed: LinkedList<String> = LinkedList()
+    /* 缓存不会写入硬盘 */
+//    private val ramOnly: ArraySet<String> = ArraySet()
     private val observers: ConcurrentHashMap<String, ArrayList<CacheObserver>> = ConcurrentHashMap()
     /* 单key缓存到双key缓存的key映射 */
     private val keysMap: ConcurrentHashMap<String, ArraySet<String>> = ConcurrentHashMap()
@@ -190,7 +192,11 @@ object Cache {
         val key = cache.javaClass.name + "-" + secondKey
         if(changed.contains(key)){
             changed.remove(key)
-            disk.writeToDisk(key, cache)
+            if(!cache.javaClass.getAnnotation(CacheBean::class.java).ramOnly){
+                disk.writeToDisk(key, cache)
+            }else{
+                Log.e(TAG, "缓存 $key 被指明不写入硬盘，跳过同步。")
+            }
         }else{
             Log.e(TAG, "缓存 $key 没有被修改过，跳过同步。")
         }
@@ -210,9 +216,11 @@ object Cache {
         if(!clazz.isAnnotationPresent(CacheBean::class.java)){
             throw Exception(clazz.name + " 缓存数据类必须使用CacheBean注解")
         }
-        if(secondKey.isNotEmpty()){
+        val annotation = clazz.getAnnotation(CacheBean::class.java)
+        if(secondKey.isNotEmpty() || annotation.secondKeys.isEmpty()){
             val cache: T
             val key = clazz.name + "-" + secondKey
+//            ramOnly.add(key)
             if(key.isEmpty()){
                 throw Exception(clazz.name + " CacheBean(key)不可为空")
             }
@@ -227,7 +235,7 @@ object Cache {
             }else{
                 cache = caches[key] as T
             }
-            val annotation = clazz.getAnnotation(CacheBean::class.java)
+//            val annotation = clazz.getAnnotation(CacheBean::class.java)
 //            if(annotation.isList){
 //                (cache as CacheList<*>).clearRecord()
 //            }
@@ -259,6 +267,7 @@ object Cache {
                 if(it.isEmpty()){
                     throw Exception(clazz.name + " CacheBean(key)不可为空")
                 }
+//                ramOnly.add(it)
                 if(!caches.containsKey(it)){
 //                    val json = disk.readFromDisk(it)
 //                    if(json == null || json.isEmpty()){
@@ -275,7 +284,7 @@ object Cache {
                 if(!changed.contains(it)){
                     changed.add(it)
                 }
-                val annotation = clazz.getAnnotation(CacheBean::class.java)
+//                val annotation = clazz.getAnnotation(CacheBean::class.java)
                 notifyObserver(it, annotation.isList, cache)
                 if(immediateMode && annotation.autoSync){
                     sync(cache, secondKey)
