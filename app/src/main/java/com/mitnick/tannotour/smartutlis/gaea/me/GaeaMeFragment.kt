@@ -17,7 +17,8 @@ import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.GaeaMyListActivity
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.user.GaeaMyListUserActivity
-import com.mitnick.tannotour.smartutlis.gaea.me.setting.GaeaSysSettingActivity
+import com.mitnick.tannotour.smartutlis.gaea.me.selfsetting.GaeaSelfSettingActivity
+import com.mitnick.tannotour.smartutlis.gaea.me.syssetting.GaeaSysSettingActivity
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
 import kotlinx.android.synthetic.main.gaea_me_fragment.*
 import org.jetbrains.anko.image
@@ -91,7 +92,7 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                         startActivity(Intent(activity, GaeaSysSettingActivity::class.java))
                     }
                     meSelfSettingItem.setOnClickListener {
-
+                        startActivity(Intent(activity, GaeaSelfSettingActivity::class.java))
                     }
                 }else{
                     meHeaderImg.image = resources.getDrawable(R.mipmap.ic_launcher)

@@ -78,7 +78,7 @@ class GaeaMagneticMonitorActivity: AppCompatActivity(), GaeaMagneticFuncs, Senso
             addScore(
                     true,
                     user,
-                    "2"
+                    "3"
             ){
                 when(it){
                     STATE.SUCCESS -> {

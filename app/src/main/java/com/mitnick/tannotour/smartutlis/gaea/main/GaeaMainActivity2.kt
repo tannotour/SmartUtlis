@@ -2,6 +2,7 @@ package com.mitnick.tannotour.smartutlis.gaea.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -27,7 +28,13 @@ import com.mitnick.tannotour.smartutlis.gaea.me.GaeaMeFragment
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
 import kotlinx.android.synthetic.main.activity_gaea_main2.*
 import kotlinx.android.synthetic.main.app_bar_gaea_main2.*
+import org.jetbrains.anko.checkedTextView
 import org.jetbrains.anko.image
+import android.widget.Toast
+import android.content.DialogInterface
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+
+
 
 @CacheKey(keys = arrayOf(UserBean::class))
 class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, CacheValueObserver {
@@ -49,6 +56,10 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         switchFragment(2)
                         drawer_layout.closeDrawer(GravityCompat.START)
                         gaeaMain2Fab.visibility = View.GONE
+                        nav_view.menu.getItem(0).isChecked = false
+                        nav_view.menu.getItem(1).isChecked = false
+                        nav_view.menu.getItem(2).isChecked = false
+                        nav_view.menu.getItem(3).isChecked = false
                     }
                 }else{
                     nav_view.getHeaderView(0).findViewById<ImageView>(R.id.gaeaMain2UserHeaderImg).image = resources.getDrawable(R.mipmap.ic_launcher)
@@ -58,6 +69,7 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         val intent = Intent(this, GaeaLoginActivity::class.java)
                         intent.putExtra("isFinish", true)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }
@@ -94,6 +106,24 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         ).show()
             }
         }
+        gaeaMain2Fab.setOnLongClickListener {
+            QMUIDialog.MenuDialogBuilder(this)
+                    .addItems(arrayOf("发现场", "发分享", "一键SOS")) { dialog, which ->
+                        dialog.dismiss()
+                        when(which){
+                            0 -> {
+                                startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
+                            }
+                            1 -> {
+                                startActivity(Intent(this, GaeaCoterieSendActivity::class.java))
+                            }
+                            2 -> {
+
+                            }
+                        }
+                    }.show()
+            true
+        }
     }
 
     override fun onBackPressed() {
@@ -106,6 +136,7 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        item.isChecked = true
         when (item.itemId) {
             R.id.nav_camera -> {
                 // Handle the camera action

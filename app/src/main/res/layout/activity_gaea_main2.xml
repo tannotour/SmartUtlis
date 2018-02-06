@@ -20,6 +20,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_gaea_main2"
-        app:menu="@menu/activity_gaea_main2_drawer" />
+        app:menu="@menu/activity_gaea_main2_drawer"
+        app:itemIconTint="@color/black1"
+        app:itemTextColor="@color/black1" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -28,6 +28,7 @@ class GaeaMyListUserActivity: AppCompatActivity(), GaeaMyListUserFuncs {
         user = intent.getParcelableExtra<UserBean>("user")
         myListTitle.text = when(type){
             "个人排名" -> "个人英雄榜"
+            "城市安全系数排名" -> "城市安全系数排名"
             else -> "我的$type"
         }
         myListBack.setOnClickListener { finish() }
@@ -37,15 +38,15 @@ class GaeaMyListUserActivity: AppCompatActivity(), GaeaMyListUserFuncs {
         myListRecyclerView.layoutManager = layoutManager
         myListRecyclerView.isNestedScrollingEnabled = true
         adapter = GaeaMyListUserAdapter(user.uuid, type, myListRecyclerView)
-        val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
+//        val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
         getMyListUser(
                 clear = true,
                 type = type
         ){ state, _ ->
-            tip.dismiss()
+//            tip.dismiss()
             when(state){
                 STATE.SUCCESS -> {
-                    toast("获取 我的$type 成功")
+//                    toast("获取 我的$type 成功")
                 }
                 STATE.FAILED -> {
                     toast("获取 我的$type 失败，请稍后再试")

@@ -34,16 +34,16 @@ class GaeaMyListActivity: AppCompatActivity(), GaeaMyListFuncs {
         myListRecyclerView.layoutManager = layoutManager
         myListRecyclerView.isNestedScrollingEnabled = true
         adapter = GaeaMyListAdapter(user.uuid, type, myListRecyclerView)
-        val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
+//        val tip = TipDialog.showTip(myListTitle, QMUITipDialog.Builder.ICON_TYPE_LOADING,"正在加载", autoDismiss = false)
         getMyList(
                 clear = true,
                 type = type,
                 userId = user.uuid
         ){ state, _ ->
-            tip.dismiss()
+//            tip.dismiss()
             when(state){
                 STATE.SUCCESS -> {
-                    toast("获取 我的$type 成功")
+//                    toast("获取 我的$type 成功")
                 }
                 STATE.FAILED -> {
                     toast("获取 我的$type 失败，请稍后再试")

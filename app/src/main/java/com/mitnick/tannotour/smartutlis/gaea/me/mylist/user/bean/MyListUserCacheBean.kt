@@ -9,4 +9,4 @@ import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
  * Description
  */
 @CacheBean(isList = true, secondKeys = arrayOf("关注", "粉丝", "个人排名", "城市安全系数排名"), ramOnly = true)
-class MyListUserCacheBean: CacheList<UserBean>()
+class MyListUserCacheBean: CacheList<MyListUserBean>()

@@ -318,6 +318,14 @@ object Cache {
         }
         return cache
     }
+
+    fun remove(key: String? = null){
+        disk.remove(key)
+    }
+
+    fun getSize(): String{
+        return disk.totalSize()
+    }
 }
 
 

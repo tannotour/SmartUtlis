@@ -17,6 +17,7 @@ import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.bean.MyListCacheBean
+import com.mitnick.tannotour.smartutlis.gaea.me.mylist.user.bean.MyListUserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.mylist.user.bean.MyListUserCacheBean
 import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
@@ -32,7 +33,7 @@ import java.util.*
 @CacheKey(keys = arrayOf(MyListUserCacheBean::class))
 class GaeaMyListUserAdapter(val userId: String, val type: String, val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, CacheListValueObserver, GaeaMyListUserFuncs {
 
-    private val datas: LinkedList<UserBean> = LinkedList()
+    private val datas: LinkedList<MyListUserBean> = LinkedList()
     private var noMore = false
 
     init {
@@ -48,11 +49,11 @@ class GaeaMyListUserAdapter(val userId: String, val type: String, val recyclerVi
                     for (index in it.positionStart .. it.positionEnd){
                         when(it.type){
                             ChangeSet.TYPE.ADD -> {
-                                datas.add(index, cache[index] as UserBean)
+                                datas.add(index, cache[index] as MyListUserBean)
                                 notifyItemInserted(index)
                             }
                             ChangeSet.TYPE.SET -> {
-                                datas[index] = cache[index] as UserBean
+                                datas[index] = cache[index] as MyListUserBean
                                 notifyItemChanged(index)
                             }
                             ChangeSet.TYPE.REMOVE -> {
@@ -91,31 +92,34 @@ class GaeaMyListUserAdapter(val userId: String, val type: String, val recyclerVi
                 gaeaMyListUserItemNo.visibility = View.GONE
                 Glide.with(context).load("${HttpHost.IMG_BASE_URL}${data.headerImg}").placeholder(R.mipmap.ic_launcher).into(gaeaMyListUserItemHeadImg)
             }
-            gaeaMyListUserItemUserName.text = data.userName
+            gaeaMyListUserItemUserName.text = when(type){
+                "城市安全系数排名" -> data.cityName
+                else -> data.userName
+            }
             gaeaMyListUserItemUserScore.text = when(type){
-                "城市安全系数排名" -> "城市积分：${data.integral}"
+                "城市安全系数排名" -> "城市积分：${data.cityRate}"
                 else -> "用户积分：${data.integral}"
             }
-            if (position == datas.size-1 && type != "个人排名" && type != "城市安全系数排名" && !noMore){
-                /* 加载更多 */
-                getMyListUser(
-                        clear = false,
-                        type = type
-                ){ state, error ->
-                    when(state){
-                        STATE.SUCCESS -> {
-                        }
-                        STATE.FAILED -> {
-                            if(error == "NO_MORE"){
-                                noMore = true
-                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "没有更多内容了")
-                            }else{
-                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "获取动态失败，请稍后刷新再试")
-                            }
-                        }
-                    }
-                }
-            }
+//            if (position == datas.size-1 && type != "个人排名" && type != "城市安全系数排名" && !noMore){
+//                /* 加载更多 */
+//                getMyListUser(
+//                        clear = true,
+//                        type = type
+//                ){ state, error ->
+//                    when(state){
+//                        STATE.SUCCESS -> {
+//                        }
+//                        STATE.FAILED -> {
+//                            if(error == "NO_MORE"){
+//                                noMore = true
+//                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "没有更多内容了")
+//                            }else{
+//                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "获取动态失败，请稍后刷新再试")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 

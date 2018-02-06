@@ -23,7 +23,7 @@
             android:title="分享" />
     </group>
 
-    <item android:title="交流">
+    <item android:title="Gaea365">
         <menu>
             <item
                 android:id="@+id/nav_share"

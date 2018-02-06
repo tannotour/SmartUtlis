@@ -47,6 +47,8 @@
                 android:layout_alignBottom="@+id/meHeaderImg"
                 android:layout_marginStart="12dp"
                 android:textSize="14sp"
+                android:textColor="@color/backGround"
+                android:alpha="0.8"
                 android:text="当前积分：36"/>
 
             <TextView
@@ -81,6 +83,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/backGround"
                     android:text="分享\n0"/>
 
                 <TextView
@@ -89,6 +92,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/backGround"
                     android:text="关注\n0"/>
 
                 <TextView
@@ -97,6 +101,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/backGround"
                     android:text="粉丝\n0"/>
             </LinearLayout>
         </android.support.design.widget.CollapsingToolbarLayout>

@@ -38,7 +38,7 @@
                     android:layout_marginTop="12dp"
                     android:textSize="12sp"
                     android:textColor="@color/backGround"
-                    android:text="我的积分：0"/>
+                    tool:text="我的积分：0"/>
 
                 <TextView
                     android:id="@+id/gaeaDynamicCitySafeScore"
@@ -49,7 +49,7 @@
                     android:layout_margin="12dp"
                     android:textSize="12sp"
                     android:textColor="@color/backGround"
-                    android:text="城市安全系数：0"/>
+                    tool:text="城市安全系数：0"/>
 
                 <TextView
                     android:id="@+id/gaeaDynamicAddress"
@@ -61,20 +61,20 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="3dp"
                     android:textColor="@color/backGround"
-                    android:text="四川成都市双流县" />
+                    tool:text="四川成都市双流县" />
 
-                <TextView
-                    android:id="@+id/gaeaDynamicWeather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/gaeaDynamicScore"
-                    android:layout_alignBottom="@+id/gaeaDynamicAddress"
-                    android:layout_alignParentEnd="true"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="12dp"
-                    android:textColor="@color/backGround"
-                    android:gravity="center"
-                    android:text="8℃"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/gaeaDynamicWeather"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignTop="@+id/gaeaDynamicScore"-->
+                    <!--android:layout_alignBottom="@+id/gaeaDynamicAddress"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_marginEnd="12dp"-->
+                    <!--android:textColor="@color/backGround"-->
+                    <!--android:gravity="center"-->
+                    <!--tool:text="8℃"/>-->
 
                 <LinearLayout
                     android:id="@+id/gaeaDynamicFuncs"
