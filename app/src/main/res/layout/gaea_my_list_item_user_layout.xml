@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gaeaMyListUserItemParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/gaeaMyListUserItemHeadImg"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/gaeaMyListUserItemUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gaeaMyListUserItemHeadImg"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/gaeaMyListUserItemHeadImg"
+        tools:text="tannotour" />
+
+    <TextView
+        android:id="@+id/gaeaMyListUserItemUserScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gaeaMyListUserItemHeadImg"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/gaeaMyListUserItemHeadImg"
+        tools:text="用户积分：71" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/gaeaMyListUserItemHeadImg"
+        android:layout_marginTop="12dp"
+        android:background="@color/colorGray" />
+</RelativeLayout>

@@ -5,6 +5,8 @@ import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.SDKInitializer
 import com.mitnick.tannotour.easylib.LibInit
+import com.mitnick.tannotour.easylib.cache.Cache
+import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 
 /**
  * Created by mitnick on 2017/12/15.
@@ -31,6 +33,11 @@ class MyApp: Application() {
     private fun startLocation(){
         mLocationClient = LocationClient(applicationContext)
         mLocationClient?.registerLocationListener { location ->
+            if(address.isEmpty()){
+                Cache.use(UserBean::class.java){
+                    this.address = location.addrStr
+                }
+            }
             address = location.addrStr
             lon = location.longitude
             lat = location.latitude

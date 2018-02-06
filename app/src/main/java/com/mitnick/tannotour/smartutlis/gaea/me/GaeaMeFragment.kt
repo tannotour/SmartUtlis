@@ -15,6 +15,8 @@ import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
+import com.mitnick.tannotour.smartutlis.gaea.me.mylist.GaeaMyListActivity
+import com.mitnick.tannotour.smartutlis.gaea.me.mylist.user.GaeaMyListUserActivity
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
 import kotlinx.android.synthetic.main.gaea_me_fragment.*
 import org.jetbrains.anko.image
@@ -42,8 +44,29 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                     meLover.text = "粉丝\n${user.loverNum}"
                     meFieldDynamicNum.text = user.liveEventNum
                     meCollectionNum.text = user.collectionNum
-                    meSetting.setOnClickListener {
-
+                    meShare.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListActivity::class.java)
+                        intent.putExtra("type", "分享")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
+                    meFieldDynamicItem.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListActivity::class.java)
+                        intent.putExtra("type", "现场")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
+                    meFocus.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListUserActivity::class.java)
+                        intent.putExtra("type", "关注")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
+                    }
+                    meLover.setOnClickListener {
+                        val intent = Intent(activity, GaeaMyListUserActivity::class.java)
+                        intent.putExtra("type", "粉丝")
+                        intent.putExtra("user", user)
+                        startActivity(intent)
                     }
                 }else{
                     meHeaderImg.image = resources.getDrawable(R.mipmap.ic_launcher)

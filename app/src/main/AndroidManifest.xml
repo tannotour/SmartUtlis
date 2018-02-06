@@ -88,13 +88,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".gaea.GaeaMainActivity" />
-        <activity android:name=".gaea.dynamic.detail.GaeaDynamicDetailActivity" />
+        <activity android:name=".gaea.dynamic.detail.GaeaDynamicDetailActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.main.GaeaMainActivity2" />
         <activity android:name=".gaea.login.GaeaLoginActivity" />
         <activity android:name=".gaea.dynamic.send.GaeaFieldDynamicSendActivity" android:theme="@style/QMUITheme"/>
         <activity android:name=".gaea.coterie.send.GaeaCoterieSendActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.sharesafe.GaeaShareSafeActivity" />
         <activity android:name=".gaea.magnetic.GaeaMagneticMonitorActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.me.mylist.GaeaMyListActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.me.mylist.user.GaeaMyListUserActivity" android:theme="@style/QMUITheme" />
     </application>
 
 </manifest>
