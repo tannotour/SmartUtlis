@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.smartutlis.gaea.dynamic
 
 import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.async.writeError
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.net.INet
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
@@ -18,33 +19,62 @@ class FieldDynamicPresenter: INet {
     var size = 10
 
     fun refreshFieldDynamic(clear: Boolean = false, type: String = ""): STATE{
-        val state: STATE = STATE.SUCCESS
+        var state: STATE = STATE.FAILED
         if(clear){
             Cache.use(FieldDynamicCacheBean::class.java, type, false){
                 clear()
             }
             pages = 1
         }
-        get<FieldDynamicNetBean> {
+        val result = get<FieldDynamicNetBean> {
             url = "${HttpHost.API_URL}liveevent/v1/list"
             params.put("page", pages.toString())
             params.put("size", size.toString())
             params.put("type", type)
         }.convert(FieldDynamicNetBean::class.java){
             it.body?.isOk == true
-        }?.body?.data?.filter {
-            if(type.isNotEmpty()){
-                it.eventType.split("-").first() == type
-            }else{
-                true
+        }?.body?.data
+        if(result != null && result.count() > 0){
+            if(result.count() < size){
+                /* 下次没有更多了 */
+                writeError(FieldDynamicCacheBean::class.java, "NO_MORE")
             }
-        }?.forEach {
-            Cache.use(FieldDynamicCacheBean::class.java, it.eventType.split("-").first(), false){
-                add(it)
+            Cache.use(FieldDynamicCacheBean::class.java, type, false){
+                state = STATE.SUCCESS
+                result.forEach {
+                    add(it)
+                }
             }
         }
         pages += 1
         return state
+//        val state: STATE = STATE.SUCCESS
+//        if(clear){
+//            Cache.use(FieldDynamicCacheBean::class.java, type, false){
+//                clear()
+//            }
+//            pages = 1
+//        }
+//        get<FieldDynamicNetBean> {
+//            url = "${HttpHost.API_URL}liveevent/v1/list"
+//            params.put("page", pages.toString())
+//            params.put("size", size.toString())
+//            params.put("type", type)
+//        }.convert(FieldDynamicNetBean::class.java){
+//            it.body?.isOk == true
+//        }?.body?.data?.filter {
+//            if(type.isNotEmpty()){
+//                it.eventType.split("-").first() == type
+//            }else{
+//                true
+//            }
+//        }?.forEach {
+//            Cache.use(FieldDynamicCacheBean::class.java, it.eventType.split("-").first(), false){
+//                add(it)
+//            }
+//        }
+//        pages += 1
+//        return state
     }
 
     class FieldDynamicNetBean{

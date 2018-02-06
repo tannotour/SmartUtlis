@@ -36,16 +36,17 @@ class GaeaCoteriePresenter: INet {
         }.convert(CoterieNetBean::class.java){
             it.body?.ok == true
         }?.body?.data
-        if(result != null && result.count() > 0 && result.count() == size){
+        if(result != null && result.count() > 0){
+            if(result.count() < size){
+                /* 下次没有更多了 */
+                writeError(CoterieCacheBean::class.java, "NO_MORE")
+            }
             Cache.use(CoterieCacheBean::class.java, type, false){
                 state = STATE.SUCCESS
                 result.forEach {
                     add(it)
                 }
             }
-        }else{
-            /* 下次没有更多了 */
-            writeError(CoterieCacheBean::class.java, "NO_MORE")
         }
         pages += 1
         return state

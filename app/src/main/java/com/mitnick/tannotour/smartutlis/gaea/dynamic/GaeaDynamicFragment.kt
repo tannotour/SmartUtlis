@@ -35,8 +35,8 @@ class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs, CacheValueObserver {
         }
     }
 
-    val title = arrayListOf("实景", "热点", "市容环境", "出行", "危险区域", "灾害", "儿童安全")
-    val titleMap = hashMapOf("实景" to "实景", "热点" to "热点现场", "市容环境" to "市容环境", "出行" to "出行安全", "危险区域" to "危险区域", "灾害" to "疑似灾害前兆", "儿童安全" to "儿童安全隐患")
+    val title = arrayListOf("实景", "热点", "市容环境", "出行", "危险区域", "儿童安全", "灾害")
+    val titleMap = hashMapOf("实景" to "实景", "热点" to "热点现场", "市容环境" to "市容环境", "出行" to "出行安全", "危险区域" to "危险区域", "儿童安全" to "儿童安全隐患", "灾害" to "疑似灾害前兆")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.gaea_dynamic_fragment, container, false)

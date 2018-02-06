@@ -19,6 +19,12 @@ import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import kotlinx.android.synthetic.main.gaea_dynamic_detail_activity.*
 import org.jetbrains.anko.below
 import org.jetbrains.anko.toast
+import android.widget.Toast
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import android.text.InputType
+import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 
 
 /**
@@ -130,22 +136,20 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
             }
         }
         gaeaDynamicDetailFuncComment.setOnClickListener {
-            val et = EditText(this)
-            et.setPadding(48, 24, 48, 24)
-            et.setBackgroundColor(Color.argb(0, 0, 0, 0))
-            et.textSize = 12f
-            AlertDialog.Builder(this).setTitle("评论@${data.user.userName}")
-//                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setView(et)
-                    .setPositiveButton("确定") { dialog, which ->
-                        val input = et.text.toString()
+            val builder = QMUIDialog.EditTextDialogBuilder(this)
+            builder.setTitle("@${data.user.userName}")
+                    .setPlaceholder("在此输入您的评论")
+                    .setInputType(InputType.TYPE_CLASS_TEXT)
+                    .addAction("取消") { dialog, _ -> dialog.dismiss() }
+                    .addAction("确定") { dialog, _ ->
+                        val input = builder.editText.text.toString()
                         if (input.isNotEmpty()) {
                             comment(type = type, eventId = data.id, message = input){
                                 when(it){
                                     STATE.SUCCESS -> {
                                         toast("评论成功")
                                         gaeaDynamicDetailFuncComment.text = (gaeaDynamicDetailFuncComment.text.toString().toInt() + 1).toString()
-                                        addCommentView( "tannotour:", input)
+                                        addCommentView( "我:", input)
                                     }
                                     STATE.FAILED -> {
                                         toast("评论失败")
@@ -155,9 +159,8 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
                         } else {
                             toast("评论内容不能为空")
                         }
-                    }
-                    .setNegativeButton("取消", null)
-                    .show()
+                        dialog.dismiss()
+                    }.show()
         }
     }
 

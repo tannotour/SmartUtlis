@@ -2,7 +2,9 @@ package com.mitnick.tannotour.smartutlis.gaea.dynamic
 
 import com.mitnick.tannotour.easylib.async.Funcs
 import com.mitnick.tannotour.easylib.async.STATE
+import com.mitnick.tannotour.easylib.async.error
 import com.mitnick.tannotour.easylib.async.task
+import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicCacheBean
 
 /**
  * Created by mitnick on 2018/1/25.
@@ -19,7 +21,7 @@ interface FieldDynamicFuncs: Funcs {
             type: String = "",
             setParams: (FieldDynamicPresenter.() -> Unit)? = null,
 //            myFilter: (FieldDynamicBean.() -> Boolean)? = null,
-            call:((state: STATE) -> Unit)? = null
+            call:((state: STATE, errorMsg: String) -> Unit)? = null
     ) = task(
             FieldDynamicPresenter::class.java,
             once,
@@ -30,6 +32,6 @@ interface FieldDynamicFuncs: Funcs {
                 refreshFieldDynamic(clear, type)
             }
     ){
-        call?.invoke(it)
+        call?.invoke(it, error(FieldDynamicCacheBean::class.java, true))
     }
 }

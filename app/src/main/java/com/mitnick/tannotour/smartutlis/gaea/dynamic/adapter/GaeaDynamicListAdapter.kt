@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.mitnick.tannotour.easylib.async.STATE
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.cache.CacheKey
@@ -23,10 +22,10 @@ import com.mitnick.tannotour.smartutlis.gaea.dynamic.FieldDynamicFuncs
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicBean
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicCacheBean
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.detail.GaeaDynamicDetailActivity
+import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.gaea_dynamic_item_layout.view.*
 import org.jetbrains.anko.below
-import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import java.util.*
 
 /**
@@ -38,6 +37,7 @@ import java.util.*
 class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerView, var visiablePosition: Int = 0, var top: Int = 0): RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener , CacheListValueObserver, FieldDynamicFuncs {
 
     val datas: LinkedList<FieldDynamicBean> = LinkedList()
+    private var noMore = false
 
     init {
         recyclerView.adapter = this
@@ -144,21 +144,28 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                 }
             }
 
-//            if (position == datas.size-1){
-//                /* 加载更多 */
-//                refreshFieldDynamic(
-//                        type = type
-//                ){
-//                    when(it){
-//                        STATE.SUCCESS -> {
-//                            holder.itemView.context.toast("加载更多现场事件成功")
-//                        }
-//                        STATE.FAILED -> {
-//                            holder.itemView.context.toast("加载更多现场事件失败")
-//                        }
-//                    }
-//                }
-//            }
+            if (position == datas.size-1 && !noMore){
+                /* 加载更多 */
+                refreshFieldDynamic(
+                        clear = false,
+                        type = type,
+                        setParams = {}
+                ){ state, error ->
+                    when(state){
+                        STATE.SUCCESS -> {
+//                            toast("获取动态成功")
+                        }
+                        STATE.FAILED -> {
+                            if(error == "NO_MORE"){
+                                noMore = true
+                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "没有更多内容了")
+                            }else{
+                                TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "获取动态失败，请稍后刷新再试")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

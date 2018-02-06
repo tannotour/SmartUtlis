@@ -2,6 +2,7 @@ package com.mitnick.tannotour.smartutlis.gaea.dynamic
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -54,9 +55,9 @@ class GaeaDynamicContentFragment: Fragment(), FieldDynamicFuncs {
                     setParams = {
                         pages = 1
                     }
-            ){
+            ){ state, _ ->
                 gaeaDynamicContentSwipeRefreshLayout.isRefreshing = false
-                when(it){
+                when(state){
                     STATE.SUCCESS -> {
                         toast("获取现场事件成功")
                     }
@@ -74,7 +75,7 @@ class GaeaDynamicContentFragment: Fragment(), FieldDynamicFuncs {
         //判断是当前layoutManager是否为LinearLayoutManager
         // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
         if (layoutManager is LinearLayoutManager) {
-            val linearManager = layoutManager as LinearLayoutManager
+            val linearManager = layoutManager
             //获取最后一个可见view的位置
 //            val lastItemPosition = linearManager.findLastVisibleItemPosition()
             //获取第一个可见view的位置
