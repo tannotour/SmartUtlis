@@ -1,11 +1,66 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <com.mitnick.tannotour.smartutlis.gaea.weather.dynamic.DynamicWeatherView
-        android:id="@+id/dynamicWeather"
+    <com.mitnick.tannotour.smartutlis.gaea.weather.weiget.WeatherLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.mitnick.tannotour.smartutlis.gaea.weather.dynamic.DynamicWeatherView
+            android:id="@+id/dynamicWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.mitnick.tannotour.smartutlis.gaea.weather.weiget.WeatherLinearLayout>
+
+    <include
+        layout="@layout/gaea_weather_city_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/gaeaWeatherBack"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:drawableEnd="@drawable/ic_chevron_left_black_24dp"-->
+        <!--android:drawableTint="@color/backGround"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:drawablePadding="12dp"-->
+        <!--android:layout_marginTop="12dp" />-->
+
+    <TextView
+        android:id="@+id/gaeaWeatherToTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
+        android:drawableTint="@color/backGround"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:text="去评测"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/backGround"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/gaeaWeatherCurrentValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/backGround"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@+id/gaeaWeatherToTest"
+        android:layout_alignBottom="@+id/gaeaWeatherToTest"
+        android:text="当前环境磁场值：48μ" />
+</RelativeLayout>

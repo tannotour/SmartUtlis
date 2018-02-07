@@ -2,7 +2,6 @@ package com.mitnick.tannotour.smartutlis.gaea.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -26,14 +25,13 @@ import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.me.GaeaMeFragment
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
+import com.mitnick.tannotour.smartutlis.gaea.weather.GaeaWeatherFuncs
+import com.mitnick.tannotour.smartutlis.gaea.weather.WeatherFragment
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import kotlinx.android.synthetic.main.activity_gaea_main2.*
 import kotlinx.android.synthetic.main.app_bar_gaea_main2.*
-import org.jetbrains.anko.checkedTextView
 import org.jetbrains.anko.image
-import android.widget.Toast
-import android.content.DialogInterface
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-
 
 
 @CacheKey(keys = arrayOf(UserBean::class))
@@ -79,10 +77,12 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gaea_main2)
+        QMUIStatusBarHelper.translucent(this)
         nav_view.setNavigationItemSelectedListener(this)
         fragments.add(GaeaDynamicFragment())
         fragments.add(GaeaCoterieFragment())
         fragments.add(GaeaMeFragment())
+        fragments.add(WeatherFragment())
         switchFragment(0)
         gaeaMain2Fab.setOnClickListener { view ->
             if(isLogined){
@@ -142,7 +142,8 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 // Handle the camera action
             }
             R.id.nav_gallery -> {
-
+                switchFragment(3)
+                gaeaMain2Fab.visibility = View.GONE
             }
             R.id.nav_slideshow -> {
                 switchFragment(0)

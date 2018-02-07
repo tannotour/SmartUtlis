@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <declare-styleable name="FakeCircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_padding" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="MiClockView">
         <attr name="backgroundColor" format="color" />
         <attr name="lightColor" format="color" />

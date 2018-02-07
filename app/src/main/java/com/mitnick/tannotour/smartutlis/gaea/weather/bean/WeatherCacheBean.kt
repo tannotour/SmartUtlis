@@ -6,7 +6,7 @@ import com.mitnick.tannotour.easylib.cache.CacheBean
  * Created by mitnick on 2018/2/7.
  * Description
  */
-@CacheBean(autoSync = false)
+@CacheBean(autoSync = true)
 class WeatherCacheBean {
     var weather: WeatherBean? = null
 }
