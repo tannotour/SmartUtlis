@@ -7,12 +7,13 @@ import com.baidu.mapapi.SDKInitializer
 import com.mitnick.tannotour.easylib.LibInit
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
+import com.mitnick.tannotour.smartutlis.gaea.weather.GaeaWeatherFuncs
 
 /**
  * Created by mitnick on 2017/12/15.
  * Description
  */
-class MyApp: Application() {
+class MyApp: Application(), GaeaWeatherFuncs {
 
     /* 定位 */
     private var mLocationClient: LocationClient? = null
@@ -36,11 +37,14 @@ class MyApp: Application() {
             if(address.isEmpty()){
                 Cache.use(UserBean::class.java){
                     this.address = location.addrStr
+                    this.lat = location.latitude
+                    this.lon = location.longitude
                 }
             }
             address = location.addrStr
             lon = location.longitude
             lat = location.latitude
+            getWeather(lat = lat.toString(), lon = lon.toString())
         }
         val option = LocationClientOption()
         option.locationMode = LocationClientOption.LocationMode.Battery_Saving
