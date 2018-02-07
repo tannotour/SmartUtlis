@@ -59,10 +59,10 @@ class GaeaDynamicContentFragment: Fragment(), FieldDynamicFuncs {
                 gaeaDynamicContentSwipeRefreshLayout.isRefreshing = false
                 when(state){
                     STATE.SUCCESS -> {
-                        toast("获取现场事件成功")
+//                        toast("获取现场事件成功")
                     }
                     STATE.FAILED -> {
-                        toast("获取现场事件失败")
+//                        toast("获取现场事件失败")
                     }
                 }
             }

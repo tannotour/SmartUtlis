@@ -13,16 +13,19 @@ import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.adapter.GaeaDynamicFragmentPagerAdapter
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.sharesafe.GaeaShareSafeActivity
+import com.mitnick.tannotour.smartutlis.gaea.weather.bean.WeatherBean
+import com.mitnick.tannotour.smartutlis.gaea.weather.bean.WeatherCacheBean
 import kotlinx.android.synthetic.main.gaea_dynamic_fragment.*
 
 /**
  * Created by mitnick on 2018/1/24.
  * Description
  */
-@CacheKey(keys = arrayOf(UserBean::class))
+@CacheKey(keys = arrayOf(UserBean::class, WeatherCacheBean::class))
 class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs, CacheValueObserver {
 
     lateinit var user: UserBean
+    var weather: WeatherBean? = null
 
     override fun onNotify(key: Class<*>, newValue: Any) {
         when(key.name){
@@ -31,6 +34,12 @@ class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs, CacheValueObserver {
                 gaeaDynamicScore.text = "我的积分：${user.integral}"
                 gaeaDynamicCitySafeScore.text = "城市安全系数：${user.citySafeNumber}"
                 gaeaDynamicAddress.text = user.address
+            }
+            WeatherCacheBean::class.java.name -> {
+                weather = (newValue as WeatherCacheBean).weather
+                if(weather != null){
+                    gaeaDynamicWeather.text = "${weather!!.showapi_res_body.now.temperature}℃"
+                }
             }
         }
     }

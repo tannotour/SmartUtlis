@@ -46,17 +46,17 @@
             android:alpha="0.8"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/gaeaDynamicWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="12dp"
-        android:textColor="@color/backGround"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:drawableTop="@drawable/ic_weather_sunny"
-        android:text="8℃"/>
+    <!--<TextView-->
+        <!--android:id="@+id/gaeaDynamicWeather"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginEnd="12dp"-->
+        <!--android:textColor="@color/backGround"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="16sp"-->
+        <!--android:drawableTop="@drawable/ic_weather_sunny"-->
+        <!--android:text="8℃"/>-->
 </RelativeLayout>
 

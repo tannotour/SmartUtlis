@@ -19,7 +19,7 @@ interface DiskCache {
 //    , call: ((ok: Boolean, key: String, obj: Any?) -> Unit)? = null
     fun writeToDisk(key: String, obj: Any?): Boolean
 
-    fun remove(key: String? = null): String
+    fun remove(context: Context, key: String? = null): String
 
     fun totalSize(): String
 

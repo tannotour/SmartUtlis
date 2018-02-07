@@ -34,17 +34,22 @@ class FieldDynamicPresenter: INet {
         }.convert(FieldDynamicNetBean::class.java){
             it.body?.isOk == true
         }?.body?.data
-        if(result != null && result.count() > 0){
+        if(result != null){
             if(result.count() < size){
                 /* 下次没有更多了 */
                 writeError(FieldDynamicCacheBean::class.java, "NO_MORE")
             }
-            Cache.use(FieldDynamicCacheBean::class.java, type, false){
-                state = STATE.SUCCESS
-                result.forEach {
-                    add(it)
+            if(result.count() > 0){
+                Cache.use(FieldDynamicCacheBean::class.java, type, false){
+                    state = STATE.SUCCESS
+                    result.forEach {
+                        add(it)
+                    }
                 }
             }
+        }else{
+            /* 下次没有更多了 */
+            writeError(FieldDynamicCacheBean::class.java, "NO_MORE")
         }
         pages += 1
         return state

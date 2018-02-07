@@ -319,8 +319,8 @@ object Cache {
         return cache
     }
 
-    fun remove(key: String? = null){
-        disk.remove(key)
+    fun remove(context: Context, key: String? = null){
+        disk.remove(context, key)
     }
 
     fun getSize(): String{

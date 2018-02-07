@@ -94,10 +94,11 @@ class Disk(var uniqueName: String = "cache", var maxSize: Long = (10 * 1024 * 10
         }
     }
 
-    override fun remove(key: String?): String {
+    override fun remove(context: Context, key: String?): String {
         val size = totalSize()
         if(key == null){
             mDiskLruCache?.delete()
+            init(context)
             Log.e(TAG, "清空全部硬盘缓存数据。")
         }else{
             mDiskLruCache?.remove(preDealKey(key))

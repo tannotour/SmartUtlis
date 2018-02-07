@@ -66,6 +66,7 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                             ChangeSet.TYPE.CLEAR -> {
                                 datas.clear()
                                 notifyDataSetChanged()
+                                noMore = false
                             }
                         }
                     }
@@ -151,13 +152,13 @@ class GaeaDynamicListAdapter(val type: String = "", val recyclerView: RecyclerVi
                         type = type,
                         setParams = {}
                 ){ state, error ->
+                    noMore = true
                     when(state){
                         STATE.SUCCESS -> {
 //                            toast("获取动态成功")
                         }
                         STATE.FAILED -> {
                             if(error == "NO_MORE"){
-                                noMore = true
                                 TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "没有更多内容了")
                             }else{
                                 TipDialog.showTip(this, QMUITipDialog.Builder.ICON_TYPE_INFO, "获取动态失败，请稍后刷新再试")
