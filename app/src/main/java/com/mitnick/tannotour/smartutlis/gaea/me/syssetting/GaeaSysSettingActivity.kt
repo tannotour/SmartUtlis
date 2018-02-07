@@ -20,12 +20,12 @@ class GaeaSysSettingActivity: AppCompatActivity() {
         gaeaSysSettingBufferSize.text = Cache.getSize()
         gaeaSysSettingBack.setOnClickListener { finish() }
         gaeaSysSettingLogout.setOnClickListener {
-            Cache.remove()
+            Cache.remove(applicationContext)
             startActivity(Intent(this, GaeaLoginActivity::class.java))
             finish()
         }
         gaeaSysSettingBufferSize.setOnClickListener {
-            Cache.remove()
+            Cache.remove(applicationContext)
             gaeaSysSettingBufferSize.text = "0B"
         }
     }
