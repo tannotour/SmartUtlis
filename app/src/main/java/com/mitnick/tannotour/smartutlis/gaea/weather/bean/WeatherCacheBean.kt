@@ -9,4 +9,5 @@ import com.mitnick.tannotour.easylib.cache.CacheBean
 @CacheBean(autoSync = true)
 class WeatherCacheBean {
     var weather: WeatherBean? = null
+    var updateTime: Long = 0
 }
