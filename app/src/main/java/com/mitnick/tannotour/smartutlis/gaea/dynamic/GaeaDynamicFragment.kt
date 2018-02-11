@@ -39,6 +39,14 @@ class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs, CacheValueObserver {
                 weather = (newValue as WeatherCacheBean).weather
                 if(weather != null){
                     gaeaDynamicWeather.text = "${weather!!.showapi_res_body.now.temperature}℃"
+                    if(weather!!.showapi_res_body.alarmList.isNotEmpty()){
+                        gaeaDynamicPushTip.text = weather!!.showapi_res_body.alarmList.first().issueContent
+                        gaeaDynamicPushTip.setOnClickListener {
+
+                        }
+                    }else{
+                        gaeaDynamicPushTip.text = "暂无预警信息"
+                    }
                 }
             }
         }

@@ -7,6 +7,7 @@ import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.login.GaeaLoginActivity
 import kotlinx.android.synthetic.main.gaea_sys_setting_activity.*
+import org.jetbrains.anko.toast
 
 /**
  * Created by mitnick on 2018/2/6.
@@ -27,6 +28,9 @@ class GaeaSysSettingActivity: AppCompatActivity() {
         gaeaSysSettingBufferSize.setOnClickListener {
             Cache.remove(applicationContext)
             gaeaSysSettingBufferSize.text = "0B"
+        }
+        gaeaSysSettingUpdateItem.setOnClickListener {
+            toast("已是最新版本")
         }
     }
 }

@@ -42,6 +42,9 @@ class FieldDynamicPresenter: INet {
             if(result.count() > 0){
                 Cache.use(FieldDynamicCacheBean::class.java, type, false){
                     state = STATE.SUCCESS
+                    if(pages == 1){
+                        clear()
+                    }
                     result.forEach {
                         add(it)
                     }

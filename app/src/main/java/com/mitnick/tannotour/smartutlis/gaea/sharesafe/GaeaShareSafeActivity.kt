@@ -11,10 +11,13 @@ import com.baidu.mapapi.map.MapStatus
 import com.baidu.mapapi.map.MapStatusUpdateFactory
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
+import com.mitnick.tannotour.easylib.cache.CacheKey
+import com.mitnick.tannotour.easylib.cache.value.CacheValueObserver
 import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.send.GaeaFieldDynamicSendActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.magnetic.GaeaMagneticMonitorActivity
+import com.mitnick.tannotour.smartutlis.gaea.weather.bean.WeatherCacheBean
 import kotlinx.android.synthetic.main.gaea_share_safe_activity.*
 import org.jetbrains.anko.toast
 
@@ -22,12 +25,32 @@ import org.jetbrains.anko.toast
  * Created by mitnick on 2018/2/5.
  * Description
  */
-class GaeaShareSafeActivity: AppCompatActivity() {
+
+@CacheKey(keys = arrayOf(WeatherCacheBean::class))
+class GaeaShareSafeActivity: AppCompatActivity(), CacheValueObserver {
 
     lateinit var user: UserBean
     /* 定位相关 */
     private var mLocationClient: LocationClient? = null
     private val myListener = MyLocationListener()
+
+    override fun onNotify(key: Class<*>, newValue: Any) {
+        when(key.name){
+            WeatherCacheBean::class.java.name -> {
+                val weather = (newValue as WeatherCacheBean).weather
+                if(weather != null){
+                    if(weather.showapi_res_body.alarmList.isNotEmpty()){
+                        shareSafeWarnMsg.text = weather.showapi_res_body.alarmList.first().issueContent
+                        shareSafeWarnMsg.setOnClickListener {
+
+                        }
+                    }else{
+                        shareSafeWarnMsg.text = "暂无预警信息"
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
