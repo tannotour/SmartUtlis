@@ -181,4 +181,8 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         oldIndex = to
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }

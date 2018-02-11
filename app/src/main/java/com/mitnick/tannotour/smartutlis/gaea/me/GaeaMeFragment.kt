@@ -1,5 +1,6 @@
 package com.mitnick.tannotour.smartutlis.gaea.me
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -21,7 +22,10 @@ import com.mitnick.tannotour.smartutlis.gaea.me.selfsetting.GaeaSelfSettingActiv
 import com.mitnick.tannotour.smartutlis.gaea.me.syssetting.GaeaSysSettingActivity
 import com.mitnick.tannotour.smartutlis.gaea.tools.GlideCircleTransform
 import kotlinx.android.synthetic.main.gaea_me_fragment.*
+import me.nereo.multi_image_selector.MultiImageSelector
+import me.nereo.multi_image_selector.MultiImageSelectorActivity
 import org.jetbrains.anko.image
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * Created by mitnick on 2018/2/3.
@@ -31,6 +35,7 @@ import org.jetbrains.anko.image
 class GaeaMeFragment: Fragment(), CacheValueObserver {
 
     var isLogined = false
+    val SELECT_PICTURE = 11000
 
     override fun onNotify(key: Class<*>, newValue: Any) {
         when(key.name){
@@ -46,6 +51,12 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                     meLover.text = "粉丝\n${user.loverNum}"
                     meFieldDynamicNum.text = user.liveEventNum
                     meCollectionNum.text = user.collectionNum
+                    meHeaderImg.setOnClickListener {
+                        MultiImageSelector.create(activity)
+                                .showCamera(true)
+                                .count(1)
+                                .start(this, SELECT_PICTURE)
+                    }
                     meShare.setOnClickListener {
                         val intent = Intent(activity, GaeaMyListActivity::class.java)
                         intent.putExtra("type", "分享")
@@ -103,6 +114,9 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
                     meLover.text = "粉丝\n0"
                     meFieldDynamicNum.text = "0"
                     meCollectionNum.text = "0"
+                    meHeaderImg.setOnClickListener {
+                        gotoLogin(meHeaderImg)
+                    }
                     meShare.setOnClickListener {
                         gotoLogin(meShare)
                     }
@@ -154,6 +168,17 @@ class GaeaMeFragment: Fragment(), CacheValueObserver {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Cache.addObserver(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == SELECT_PICTURE){
+                if(data == null) return
+                val path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT).asSequence().first()
+                toast("头像上传失败")
+            }
+        }
     }
 
     override fun onDestroyView() {

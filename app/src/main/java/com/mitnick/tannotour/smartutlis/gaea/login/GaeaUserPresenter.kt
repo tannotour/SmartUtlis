@@ -38,6 +38,36 @@ class GaeaUserPresenter: INet {
         return state
     }
 
+    fun register(phone: String, password: String, captcha: String): STATE{
+        var state: STATE = STATE.FAILED
+        val result = post<LoginNetBean> {
+            url = "${HttpHost.API_URL}v1/user/register"
+            data.put("phone", phone)
+            data.put("password", password)
+            data.put("captcha", captcha)
+        }.convert(LoginNetBean::class.java){
+            true
+        }?.body
+        if(result != null && result.isOk){
+            state = STATE.SUCCESS
+        }
+        return state
+    }
+
+    fun getCaptcha(phone: String): STATE{
+        var state: STATE = STATE.FAILED
+        val result = post<LoginNetBean> {
+            url = "${HttpHost.API_URL}v1/user/getCaptcha"
+            data.put("phone", phone)
+        }.convert(LoginNetBean::class.java){
+            true
+        }?.body
+        if(result != null && result.isOk){
+            state = STATE.SUCCESS
+        }
+        return state
+    }
+
     class LoginNetBean{
         var code: String? = null
         var desc: String? = null
