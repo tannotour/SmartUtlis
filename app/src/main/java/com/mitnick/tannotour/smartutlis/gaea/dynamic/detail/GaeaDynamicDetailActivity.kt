@@ -77,7 +77,7 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
                 isThumbDown = true
             }
         }.count().toString()
-        if(isThumbed){
+        if(isThumbDown){
             val drawable = resources.getDrawable(R.drawable.ic_thumb_down_blue)
             drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
             gaeaDynamicDetailFuncThumbDown.setCompoundDrawables(null, drawable, null, null)

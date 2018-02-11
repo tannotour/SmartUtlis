@@ -40,11 +40,11 @@ class MyApp: Application(), GaeaWeatherFuncs {
                     this.lat = location.latitude
                     this.lon = location.longitude
                 }
-                getWeather(lat = lat.toString(), lon = lon.toString())
             }
             address = location.addrStr
             lon = location.longitude
             lat = location.latitude
+            getWeather(lat = lat.toString(), lon = lon.toString())
         }
         val option = LocationClientOption()
         option.locationMode = LocationClientOption.LocationMode.Battery_Saving

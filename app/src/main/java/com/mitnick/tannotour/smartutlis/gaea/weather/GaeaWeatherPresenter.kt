@@ -57,6 +57,6 @@ class GaeaWeatherPresenter: INet {
 
     private fun checkTime(timeLeft: Long, timeRight: Long): Boolean{
         val result = Math.abs(timeLeft - timeRight)
-        return (result * 1.0 / (1000 * 60 * 60)) <= 24
+        return (result * 1.0 / (1000 * 60 * 60)) > 24
     }
 }
