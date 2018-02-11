@@ -5,8 +5,7 @@ import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.easylib.net.INet
 import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
-import com.mitnick.tannotour.smartutlis.gaea.me.selfsetting.bean.AddressBean
-import com.mitnick.tannotour.smartutlis.gaea.me.selfsetting.bean.AddressCacheBean
+import com.mitnick.tannotour.smartutlis.gaea.me.selfsetting.bean.*
 import java.util.*
 
 /**
@@ -64,7 +63,7 @@ class SelfSettingPresenter: INet {
             Cache.use(AddressCacheBean::class.java){
                 val addressBean = AddressBean()
                 addressBean.address = address
-                add(0, addressBean)
+                add(addressBean)
             }
         }
         return state
@@ -84,8 +83,63 @@ class SelfSettingPresenter: INet {
             Cache.use(AddressCacheBean::class.java){
                 clear()
                 result.data.address.forEach {
-                    add(0, AddressBean(it))
+                    add(AddressBean(it))
                 }
+            }
+        }
+        return state
+    }
+
+    fun addEmergencePeople(name: String, phone: String): STATE{
+        var state: STATE = STATE.FAILED
+        Cache.use(EmergencePeopleCacheBean::class.java){
+            phone.split("-").filter {
+                it.isNotEmpty()
+            }.forEach {
+                val people: EmergencePeopleBean = EmergencePeopleBean()
+                people.name = name
+                people.phone = it
+                add(people)
+            }
+        }
+        state = STATE.SUCCESS
+        return state
+    }
+
+    fun setEmergenceData(
+            birth: String,
+            sex: String,
+            height: String,
+            bloodType: String,
+            disease: String,
+            allergy: String,
+            operation: String
+    ): STATE{
+        var state: STATE = STATE.FAILED
+        val userId = Cache.get(UserBean::class.java).uuid
+        val result = get<EmergenceDataNetBean> {
+            url = "${HttpHost.API_URL}v1/user/setEmergencyData/creat"
+            params.put("userId", userId)
+            params.put("birth", birth)
+            params.put("sex", sex)
+            params.put("height", height)
+            params.put("bloodType", bloodType)
+            params.put("disease", disease)
+            params.put("allergy", allergy)
+            params.put("operation", operation)
+        }.convert(EmergenceDataNetBean::class.java){
+            true
+        }?.body
+        if(result != null && result.ok){
+            state = STATE.SUCCESS
+            Cache.use(EmergenceDataBean::class.java){
+                this.birth = birth
+                this.sex = sex
+                this.height = height
+                this.bloodType = bloodType
+                this.disease = disease
+                this.allergy = allergy
+                this.operation = operation
             }
         }
         return state
@@ -109,5 +163,12 @@ class SelfSettingPresenter: INet {
         class DataBean{
             val address: LinkedList<String> = LinkedList()
         }
+    }
+
+    class EmergenceDataNetBean{
+        var code: String = ""
+        var desc: String = ""
+        var data: EmergenceDataBean? = null
+        var ok: Boolean = false
     }
 }

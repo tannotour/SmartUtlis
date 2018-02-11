@@ -7,5 +7,5 @@ import com.mitnick.tannotour.easylib.cache.CacheList
  * Created by mitnick on 2018/2/11.
  * Description
  */
-@CacheBean(isList = true, ramOnly = true)
-class AddressCacheBean: CacheList<AddressBean>()
+@CacheBean(isList = true)
+class EmergencePeopleCacheBean: CacheList<EmergencePeopleBean>()

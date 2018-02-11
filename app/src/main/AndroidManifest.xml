@@ -99,6 +99,7 @@
         <activity android:name=".gaea.me.mylist.user.GaeaMyListUserActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.syssetting.GaeaSysSettingActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.selfsetting.GaeaSelfSettingActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.me.selfsetting.emergencedata.GaeaEmergenceDataActivity" android:theme="@style/QMUITheme" />
     </application>
 
 </manifest>
