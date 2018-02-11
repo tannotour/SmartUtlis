@@ -55,4 +55,20 @@ interface FieldDynamicDetailFuncs: Funcs {
     ){
         call?.invoke(it)
     }
+
+    fun report(
+            once: Boolean = true,
+            type: String,
+            eventId: String,
+            content: String = "举报",
+            call:((state: STATE) -> Unit)? = null
+    ) = task(
+            FieldDynamicDetailPresenter::class.java,
+            once,
+            doJob = {
+                report(type, eventId, content)
+            }
+    ){
+        call?.invoke(it)
+    }
 }

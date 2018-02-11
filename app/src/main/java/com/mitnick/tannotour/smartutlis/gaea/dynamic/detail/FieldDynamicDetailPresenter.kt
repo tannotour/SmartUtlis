@@ -7,6 +7,7 @@ import com.mitnick.tannotour.smartutlis.gaea.HttpHost
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicBean
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.bean.FieldDynamicCacheBean
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
+import java.util.*
 
 /**
  * Created by mitnick on 2018/1/31.
@@ -16,7 +17,7 @@ class FieldDynamicDetailPresenter: INet {
 
 //    "90704b00-1853-11e7-9fee-3dc67b13fe13"
 
-    var userCache: UserBean = Cache.get(UserBean::class.java).clone() as UserBean
+    val userCache: UserBean = Cache.get(UserBean::class.java).clone() as UserBean
 
     fun thumbUp(type: String, eventId: String): STATE{
         var state: STATE = STATE.FAILED
@@ -110,6 +111,23 @@ class FieldDynamicDetailPresenter: INet {
                     this.set(it, cache)
                 }
             }
+        }
+        return state
+    }
+
+    fun report(type: String, eventId: String, content: String): STATE{
+        var state: STATE = STATE.FAILED
+        val result = get<ThumbNetBean> {
+            url = "${HttpHost.API_URL}v1/user/tipOff/live"
+            params.put("userId", userCache.uuid)
+            params.put("liveId", eventId)
+            params.put("content", content)
+            params.put("date", Date().time.toString())
+        }.convert(ThumbNetBean::class.java){
+            true
+        }?.body?.ok
+        if(result != null && result){
+            state = STATE.SUCCESS
         }
         return state
     }

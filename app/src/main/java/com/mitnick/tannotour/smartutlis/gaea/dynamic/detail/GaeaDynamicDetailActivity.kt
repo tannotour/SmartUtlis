@@ -35,6 +35,7 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
 
     lateinit var data: FieldDynamicBean
     lateinit var type: String
+    val user: UserBean = Cache.get(UserBean::class.java).clone() as UserBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +51,7 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
         gaeaDynamicDetailAddress.text = data.address
         gaeaDynamicDetailTitle.text = data.eventType.split("-").last()
         var thumbs = ""
+        var isThumbed = false
         gaeaDynamicDetailFuncThumbUp.text = data.thumbs.filter {
             it.type == "0"
         }.map {
@@ -57,11 +59,29 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
                 thumbs += ","
             }
             thumbs += it.user.userName
+            if(it.user.userId == user.uuid){
+                isThumbed = true
+            }
         }.count().toString()
+        if(isThumbed){
+            val drawable = resources.getDrawable(R.drawable.ic_thumb_up_red)
+            drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            gaeaDynamicDetailFuncThumbUp.setCompoundDrawables(null, drawable, null, null)
+        }
         gaeaDynamicDetailThumbs.text = thumbs
+        var isThumbDown = false
         gaeaDynamicDetailFuncThumbDown.text = data.thumbs.filter {
             it.type == "1"
+        }.map {
+            if(it.user.userId == user.uuid){
+                isThumbDown = true
+            }
         }.count().toString()
+        if(isThumbed){
+            val drawable = resources.getDrawable(R.drawable.ic_thumb_down_blue)
+            drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+            gaeaDynamicDetailFuncThumbDown.setCompoundDrawables(null, drawable, null, null)
+        }
         gaeaDynamicDetailFuncComment.text = data.comments.map {
             addCommentView( "${it.user.userName}:", it.message)
         }.count().toString()
@@ -103,6 +123,10 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
         }
         gaeaDynamicDetailBack.setOnClickListener { finish() }
         gaeaDynamicDetailFuncThumbUp.setOnClickListener {
+            if(isThumbed){
+                toast("已经赞过")
+                return@setOnClickListener
+            }
             thumbUp(type = type, eventId = data.id){
                 when(it){
                     STATE.SUCCESS -> {
@@ -120,6 +144,10 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
             }
         }
         gaeaDynamicDetailFuncThumbDown.setOnClickListener {
+            if(isThumbDown){
+                toast("已经踩过")
+                return@setOnClickListener
+            }
             thumbDown(type = type, eventId = data.id){
                 when(it){
                     STATE.SUCCESS -> {
@@ -161,6 +189,18 @@ class GaeaDynamicDetailActivity: AppCompatActivity(), FieldDynamicDetailFuncs {
                         }
                         dialog.dismiss()
                     }.show()
+        }
+        gaeaDynamicDetailFuncReport.setOnClickListener {
+            report(type = type, eventId = data.id){
+                when(it){
+                    STATE.SUCCESS -> {
+                        toast("举报成功，若确认举报内容属实，将给予用户相应的惩罚")
+                    }
+                    STATE.FAILED -> {
+                        toast("举报失败")
+                    }
+                }
+            }
         }
     }
 
