@@ -1,6 +1,7 @@
 package com.mitnick.tannotour.smartutlis.test
 
 import android.app.Application
+import android.content.Context
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.SDKInitializer
@@ -8,6 +9,9 @@ import com.mitnick.tannotour.easylib.LibInit
 import com.mitnick.tannotour.easylib.cache.Cache
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.weather.GaeaWeatherFuncs
+import android.support.multidex.MultiDex
+
+
 
 /**
  * Created by mitnick on 2017/12/15.
@@ -29,6 +33,11 @@ class MyApp: Application(), GaeaWeatherFuncs {
         LibInit.appInit(this)
         SDKInitializer.initialize(applicationContext)
         startLocation()
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
     private fun startLocation(){
