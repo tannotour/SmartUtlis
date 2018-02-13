@@ -8,11 +8,12 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
 //        applicationId "com.mitnick.tannotour.easylib"
-        minSdkVersion 23
-        targetSdkVersion 26
+        minSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/areaHeader"
+        android:background="@color/colorPrimary"
+        android:padding="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/areaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="片区地磁大数据"
+            android:textColor="@color/backGround"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/areaBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:tint="@color/backGround"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/areaAddComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:text="添加城市留言"
+            android:textColor="@color/backGround"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/areaHeader"
+        android:layout_above="@+id/areaToSendDynamic">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/areaMapView"
+            android:layout_width="match_parent"
+            android:layout_height="164dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/areaUserCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="在线使用\n1人"/>
+
+            <TextView
+                android:id="@+id/areaUserProportion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="半径五公里\n0%"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/areaUserTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12sp"
+            android:paddingEnd="12dp"
+            android:text="提示：如果小于100人，提示片区用户量过少，数据仅供参考，可向其它用户推荐安装，以便进行数据对比。"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/areaCityComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="3dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/areaToSendDynamic"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textColor="@color/backGround"
+        android:text="疑似地震前兆异常信息上传"/>
+</RelativeLayout>

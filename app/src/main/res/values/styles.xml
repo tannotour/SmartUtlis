@@ -24,4 +24,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="WelcomeTheme" parent="QMUI.Compat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="qmui_config_color_blue">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@drawable/slpash_2</item>
+    </style>
+
 </resources>

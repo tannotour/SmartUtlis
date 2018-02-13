@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/areaCityCommentUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textSize="14sp"
+        tool:text="tannotour" />
+
+    <TextView
+        android:id="@+id/areaCityCommentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:textSize="14sp"
+        tool:text="2018-02-12 13:05" />
+
+    <TextView
+        android:id="@+id/areaCityCommentContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/areaCityCommentUserName"
+        android:layout_marginTop="3dp"
+        android:textSize="16sp"
+        android:maxLines="5"
+        tool:text="留言内容" />
+</RelativeLayout>
