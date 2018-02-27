@@ -66,7 +66,7 @@
     <application
         android:name=".test.MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -79,8 +79,11 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
-        <activity android:name=".gaea.welcome.WelcomeActivity">
+        <service
+            android:name=".gaea.util.magnetic.SensorService"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|navigation" />
+        <!--.TestMainActivity-->
+        <activity android:name=".gaea.welcome.WelcomeActivity" android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -90,7 +93,7 @@
         <activity android:name=".gaea.GaeaMainActivity" />
         <activity android:name=".gaea.dynamic.detail.GaeaDynamicDetailActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.main.GaeaMainActivity2" android:theme="@style/QMUITheme" />
-        <activity android:name=".gaea.login.GaeaLoginActivity" />
+        <activity android:name=".gaea.login.GaeaLoginActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.dynamic.send.GaeaFieldDynamicSendActivity" android:theme="@style/QMUITheme"/>
         <activity android:name=".gaea.coterie.send.GaeaCoterieSendActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.sharesafe.GaeaShareSafeActivity" />
@@ -100,6 +103,8 @@
         <activity android:name=".gaea.me.syssetting.GaeaSysSettingActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.selfsetting.GaeaSelfSettingActivity" android:theme="@style/QMUITheme" />
         <activity android:name=".gaea.me.selfsetting.emergencedata.GaeaEmergenceDataActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.area.GaeaAreaActivity" android:theme="@style/QMUITheme" />
+        <activity android:name=".gaea.area.comment.GaeaAreaCityCommentActivity" android:theme="@style/QMUITheme" />
     </application>
 
 </manifest>
