@@ -143,6 +143,7 @@
                     android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
                     android:drawableTint="@color/colorGray"
                     android:gravity="center_vertical"
+                    android:textColor="#a2a2a2"
                     android:textSize="12sp" />
             </RelativeLayout>
 
