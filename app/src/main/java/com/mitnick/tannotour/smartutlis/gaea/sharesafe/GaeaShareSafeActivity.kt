@@ -60,6 +60,21 @@ class GaeaShareSafeActivity: AppCompatActivity(), CacheValueObserver {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        shareSafeMapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shareSafeMapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        shareSafeMapView.onDestroy()
+    }
+
     private fun init(){
         shareSafeCitySafeScore.text = "城市安全系数：${user.citySafeNumber}"
         shareSafeToSendDynamic.setOnClickListener {

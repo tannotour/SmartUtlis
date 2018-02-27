@@ -1,5 +1,6 @@
 package com.mitnick.tannotour.smartutlis.gaea.magnetic
 
+import android.content.Intent
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.mitnick.tannotour.easylib.async.STATE
 import com.mitnick.tannotour.smartutlis.R
+import com.mitnick.tannotour.smartutlis.gaea.area.GaeaAreaActivity
 import com.mitnick.tannotour.smartutlis.gaea.login.UserBean
 import com.mitnick.tannotour.smartutlis.gaea.tools.TipDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -94,7 +96,14 @@ class GaeaMagneticMonitorActivity: AppCompatActivity(), GaeaMagneticFuncs, Senso
                 magneticMonitorStartButton.visibility = View.VISIBLE
             }
         }
-        magneticMonitorCancel.setOnClickListener { finish() }
+        magneticMonitorCancel.setOnClickListener {
+            stopListen()
+            finish()
+        }
+        magneticMonitorToBigData.setOnClickListener {
+            stopListen()
+            startActivity(Intent(this, GaeaAreaActivity::class.java))
+        }
     }
 
     val handler = object : Runnable{

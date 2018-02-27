@@ -33,6 +33,12 @@ class GaeaUserPresenter: INet {
                 userName = result.data.userName
                 uuid = result.data.uuid
                 isLogined = true
+                livePostNum = result.data.livePostNum
+                focusNum = result.data.focusNum
+                loverNum = result.data.loverNum
+                liveEventNum = result.data.liveEventNum
+                collectionNum = result.data.collectionNum
+                citySafeNumber = result.data.citySafeNumber
             }
         }
         return state

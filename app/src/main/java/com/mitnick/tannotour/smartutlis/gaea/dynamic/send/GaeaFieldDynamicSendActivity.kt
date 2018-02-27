@@ -156,6 +156,9 @@ class GaeaFieldDynamicSendActivity: AppCompatActivity(), GaeaDynamicSendFuncs, C
             }
         }
         back.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("type", "")
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
         send.setOnClickListener {

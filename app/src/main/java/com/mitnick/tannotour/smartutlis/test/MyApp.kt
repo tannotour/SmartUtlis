@@ -26,6 +26,8 @@ class MyApp: Application(), GaeaWeatherFuncs {
         var address = ""
         var lon = 0.0
         var lat = 0.0
+
+        @JvmStatic var visible = false
     }
 
     override fun onCreate() {

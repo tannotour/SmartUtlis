@@ -75,9 +75,12 @@ class GaeaDynamicFragment: Fragment(), FieldDynamicFuncs, CacheValueObserver {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
+    fun switchType(type: String){
+        val buffer = titleMap.entries.filter {
+            it.value == type
+        }.first().key
+        val position = title.indexOf(buffer)
+        gaeaDynamicTypeTab.getTabAt(position)?.select()
     }
 
     override fun onDestroyView() {

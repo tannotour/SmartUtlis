@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.dynamic.GaeaDynamicFragment
 import kotlinx.android.synthetic.main.gaea_main_activity.*
+import com.mitnick.tannotour.smartutlis.gaea.util.magnetic.SensorService
+import android.content.Intent
+import com.mitnick.tannotour.smartutlis.test.MyApp
+
 
 /**
  * Created by mitnick on 2018/1/24.
@@ -44,6 +48,15 @@ class GaeaMainActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        /* 开始采集磁场数据 */
+        MyApp.visible = true
+        val intent = Intent()
+        intent.setClass(this, SensorService::class.java)
+        startService(intent)
     }
 
     private fun switchFragment(to: Int) {

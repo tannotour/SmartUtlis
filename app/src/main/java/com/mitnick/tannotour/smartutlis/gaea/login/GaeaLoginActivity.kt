@@ -10,6 +10,11 @@ import com.mitnick.tannotour.smartutlis.R
 import com.mitnick.tannotour.smartutlis.gaea.main.GaeaMainActivity2
 import kotlinx.android.synthetic.main.gaea_login_activity.*
 import org.jetbrains.anko.toast
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+
+
+
+
 
 /**
  * Created by mitnick on 2018/2/2.
@@ -68,11 +73,19 @@ class GaeaLoginActivity: AppCompatActivity(), GaeaUserFuncs {
         }
         toRegister.setOnClickListener {
             if(isLogin){
-                /* 跳转至注册 */
-                loginCodeRoot.visibility = View.VISIBLE
-                loginButtonText.text = "注册"
-                toRegister.text = "登录"
-                isLogin = false
+                QMUIDialog.MessageDialogBuilder(this)
+                        .setTitle("用户使用协议")
+                        .setMessage(resources.getString(R.string.userXieyi))
+                        .addAction("取消") { dialog, index -> dialog.dismiss() }
+                        .addAction("同意"){ dialog, index ->
+                            /* 跳转至注册 */
+                            loginCodeRoot.visibility = View.VISIBLE
+                            loginButtonText.text = "注册"
+                            toRegister.text = "登录"
+                            isLogin = false
+                            dialog.dismiss()
+                        }
+                        .show()
             }else{
                 loginCodeRoot.visibility = View.GONE
                 loginPhone.text.clear()

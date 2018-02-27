@@ -1,5 +1,6 @@
 package com.mitnick.tannotour.smartutlis.gaea.main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -40,6 +41,7 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
     val fragments: ArrayList<Fragment> = ArrayList()
     var oldIndex = -1
     var isLogined = false
+    val REQUEST_SEND_DYNAMIC = 12000
 
     override fun onNotify(key: Class<*>, newValue: Any) {
         when(key.name){
@@ -88,7 +90,8 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
             if(isLogined){
                 when(oldIndex){
                     0 -> {
-                        startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
+//                        startActivity(Intent(this, GaeaFieldDynamicSendActivity::class.java))
+                        startActivityForResult(Intent(this, GaeaFieldDynamicSendActivity::class.java), REQUEST_SEND_DYNAMIC)
                     }
                     1 -> {
                         startActivity(Intent(this, GaeaCoterieSendActivity::class.java))
@@ -182,7 +185,15 @@ class GaeaMainActivity2 : AppCompatActivity(), NavigationView.OnNavigationItemSe
         oldIndex = to
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_SEND_DYNAMIC){
+            if(resultCode == Activity.RESULT_OK){
+                val type = data.getStringExtra("type")
+                if(type.isNotEmpty()){
+                    (fragments[0] as GaeaDynamicFragment).switchType(type)
+                }
+            }
+        }
     }
 }
