@@ -57,7 +57,7 @@ kotlin {
 //    siteUrl = 'https://github.com/tannotour/EasyLib'          //把项目分享到github后的项目地址
 //    gitUrl = 'https://github.com/tannotour/EasyLib.git'       //分享后的项目git地址
 //
-//    libraryVersion = '1.2'
+//    libraryVersion = '1.3'
 //    developerId = 'tannotour'                             //这个开发者id，自己写
 //    developerName = 'tannotour'                           //这个是开发者名字
 //    developerEmail = '897922356@qq.com'                    //开发者邮箱
