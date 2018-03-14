@@ -8,5 +8,5 @@ import com.mitnick.tannotour.easylib.cache.CacheList
  * Description
  */
 
-@CacheBean(isList = true, secondKeys = arrayOf("实景", "热点", "市容环境", "出行", "危险区域", "灾害", "儿童安全"))
+@CacheBean(isList = true, secondKeys = arrayOf("实景", "热点", "附近", "出行", "市容环境", "危险区", "儿童安全"))
 class FieldDynamicCacheBean: CacheList<FieldDynamicBean>()
