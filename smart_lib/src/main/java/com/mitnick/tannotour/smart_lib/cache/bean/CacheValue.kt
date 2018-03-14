@@ -8,6 +8,7 @@ import com.mitnick.tannotour.smart_lib.cache.observer.annos.CacheReceiver
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.jvmName
 
 /**
  * Created by mitnick on 2018/2/14.
@@ -15,38 +16,33 @@ import kotlin.reflect.full.memberProperties
  */
 abstract class CacheValue: CacheBean {
 
-    /* 数据 */
-//    private var data: Any? = null
     /* 观察者链表 */
-    private val observers: LinkedList<CacheValueObserver> = LinkedList()
-//    private val observers: HashMap<CacheValueObserver, String> = HashMap()
+    private val observers: LinkedList<Any> = LinkedList()
 
-    override fun notifyObserver(observer: CacheObserver?) {
-        if(observer == null){
-            observers.forEach {
-                it.onUpdate(this.javaClass.name, this)
-            }
+    override fun notifyObserver(observer: Any?) {
+//        if(observer == null){
+//            observers.forEach {
+//                it.onUpdate(this.javaClass.name, this)
+//            }
+//        }else{
+//            (observer as CacheValueObserver).onUpdate(this.javaClass.name, this)
+//        }
+        if(null != observer){
+            executeNotify(observer, this, this::class.jvmName)
         }else{
-            (observer as CacheValueObserver).onUpdate(this.javaClass.name, this)
+            observers.forEach {
+                executeNotify(it, this, this::class.jvmName)
+            }
         }
     }
 
-    override fun addObserver(observer: CacheObserver){
+    override fun addObserver(observer: Any){
         if(!observers.contains(observer)){
             observers.add(observer as CacheValueObserver)
         }
     }
 
-//    fun addObserver(observer: Any){
-//        if(!observers.contains(observer)){
-//            val method = observer.javaClass.methods.filter {
-//                it.isAnnotationPresent(CacheReceiver::class.java)
-//            }.first()
-//            observers.add(observer as CacheValueObserver)
-//        }
-//    }
-
-    override fun removeObserver(observer: CacheObserver): Boolean {
+    override fun removeObserver(observer: Any): Boolean {
         if(observers.contains(observer)){
             observers.remove(observer)
         }

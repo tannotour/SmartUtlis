@@ -25,10 +25,10 @@ class T: CacheValueObserver {
 
     fun test(){
         register()
-        use(Bean::class.java){
+        use(Bean::class){
 
         }
-        use(Bean2::class.java){
+        use(Bean2::class){
 
         }
         unRegister()

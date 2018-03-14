@@ -7,6 +7,7 @@ import com.mitnick.tannotour.smart_lib.cache.observer.CacheObserver
 import com.mitnick.tannotour.smart_lib.cache.observer.ChangeSet
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.reflect.jvm.jvmName
 
 /**
  * Created by mitnick on 2017/12/16.
@@ -19,27 +20,35 @@ abstract class CacheList<T>(var maxSize: Int = 32): CacheBean {
     /* 更新记录 */
     private val changes: LinkedList<ChangeSet> = LinkedList()
     /* 观察者链表 */
-    private val observers: LinkedList<CacheListValueObserver> = LinkedList()
+    private val observers: LinkedList<Any> = LinkedList()
 
-    override fun notifyObserver(observer: CacheObserver?) {
+    override fun notifyObserver(observer: Any?) {
         updateChanges()
-        if(observer == null){
+//        if(observer == null){
+//            observers.forEach {
+//                it.onUpdate(this.javaClass.name, changes, dataSet)
+//            }
+//            clearRecord()
+//        }else{
+//            (observer as CacheListValueObserver).onUpdate(this.javaClass.name, changes, dataSet)
+//        }
+        if(null != observer){
+            executeNotify(observer, CacheListObj(changes, dataSet), this::class.jvmName)
+        }else{
             observers.forEach {
-                it.onUpdate(this.javaClass.name, changes, dataSet)
+                executeNotify(it, CacheListObj(changes, dataSet), this::class.jvmName)
             }
             clearRecord()
-        }else{
-            (observer as CacheListValueObserver).onUpdate(this.javaClass.name, changes, dataSet)
         }
     }
 
-    override fun addObserver(observer: CacheObserver){
+    override fun addObserver(observer: Any){
         if(!observers.contains(observer)){
             observers.add(observer as CacheListValueObserver)
         }
     }
 
-    override fun removeObserver(observer: CacheObserver): Boolean {
+    override fun removeObserver(observer: Any): Boolean {
         if(observers.contains(observer)){
             observers.remove(observer)
         }
