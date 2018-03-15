@@ -3,7 +3,7 @@ package com.mitnick.tannotour.smart_lib.cache.bean
 import com.mitnick.tannotour.smart_lib.cache.bean.annos.RamOnly
 import com.mitnick.tannotour.smart_lib.cache.disk.DiskCache
 import com.mitnick.tannotour.smart_lib.cache.observer.CacheObserver
-import com.mitnick.tannotour.smart_lib.cache.observer.CacheValueObserver
+//import com.mitnick.tannotour.smart_lib.cache.observer.CacheValueObserver
 import com.mitnick.tannotour.smart_lib.cache.observer.annos.CacheReceiver
 import java.util.*
 import kotlin.collections.HashMap
@@ -38,7 +38,7 @@ abstract class CacheValue: CacheBean {
 
     override fun addObserver(observer: Any){
         if(!observers.contains(observer)){
-            observers.add(observer as CacheValueObserver)
+            observers.add(observer)
         }
     }
 

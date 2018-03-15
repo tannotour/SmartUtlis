@@ -2,7 +2,7 @@ package com.mitnick.tannotour.smart_lib.cache.bean
 
 import com.mitnick.tannotour.smart_lib.cache.bean.annos.RamOnly
 import com.mitnick.tannotour.smart_lib.cache.disk.DiskCache
-import com.mitnick.tannotour.smart_lib.cache.observer.CacheListValueObserver
+//import com.mitnick.tannotour.smart_lib.cache.observer.CacheListValueObserver
 import com.mitnick.tannotour.smart_lib.cache.observer.CacheObserver
 import com.mitnick.tannotour.smart_lib.cache.observer.ChangeSet
 import java.util.*
@@ -44,7 +44,7 @@ abstract class CacheList<T>(var maxSize: Int = 32): CacheBean {
 
     override fun addObserver(observer: Any){
         if(!observers.contains(observer)){
-            observers.add(observer as CacheListValueObserver)
+            observers.add(observer)
         }
     }
 
