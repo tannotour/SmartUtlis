@@ -2,12 +2,7 @@ package com.mitnick.tannotour.smart_lib.cache.bean
 
 import com.mitnick.tannotour.smart_lib.cache.bean.annos.RamOnly
 import com.mitnick.tannotour.smart_lib.cache.disk.DiskCache
-import com.mitnick.tannotour.smart_lib.cache.observer.CacheObserver
-//import com.mitnick.tannotour.smart_lib.cache.observer.CacheValueObserver
-import com.mitnick.tannotour.smart_lib.cache.observer.annos.CacheReceiver
 import java.util.*
-import kotlin.collections.HashMap
-import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.jvmName
 
 /**
@@ -20,13 +15,6 @@ abstract class CacheValue: CacheBean {
     private val observers: LinkedList<Any> = LinkedList()
 
     override fun notifyObserver(observer: Any?) {
-//        if(observer == null){
-//            observers.forEach {
-//                it.onUpdate(this.javaClass.name, this)
-//            }
-//        }else{
-//            (observer as CacheValueObserver).onUpdate(this.javaClass.name, this)
-//        }
         if(null != observer){
             executeNotify(observer, this, this::class.jvmName)
         }else{

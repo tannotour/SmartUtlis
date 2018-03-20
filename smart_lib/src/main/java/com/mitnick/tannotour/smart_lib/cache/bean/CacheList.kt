@@ -2,8 +2,6 @@ package com.mitnick.tannotour.smart_lib.cache.bean
 
 import com.mitnick.tannotour.smart_lib.cache.bean.annos.RamOnly
 import com.mitnick.tannotour.smart_lib.cache.disk.DiskCache
-//import com.mitnick.tannotour.smart_lib.cache.observer.CacheListValueObserver
-import com.mitnick.tannotour.smart_lib.cache.observer.CacheObserver
 import com.mitnick.tannotour.smart_lib.cache.observer.ChangeSet
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -24,14 +22,6 @@ abstract class CacheList<T>(var maxSize: Int = 32): CacheBean {
 
     override fun notifyObserver(observer: Any?) {
         updateChanges()
-//        if(observer == null){
-//            observers.forEach {
-//                it.onUpdate(this.javaClass.name, changes, dataSet)
-//            }
-//            clearRecord()
-//        }else{
-//            (observer as CacheListValueObserver).onUpdate(this.javaClass.name, changes, dataSet)
-//        }
         if(null != observer){
             executeNotify(observer, CacheListObj(changes, dataSet), this::class.jvmName)
         }else{
