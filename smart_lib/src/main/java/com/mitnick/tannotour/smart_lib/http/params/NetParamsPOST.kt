@@ -1,6 +1,6 @@
-package com.mitnick.tannotour.smart_lib.net.params
+package com.mitnick.tannotour.smart_lib.http.params
 
-import com.mitnick.tannotour.smart_lib.net.HttpClient
+import com.mitnick.tannotour.smart_lib.http.HttpClient
 import java.util.HashMap
 
 /**

@@ -1,7 +1,7 @@
-package com.mitnick.tannotour.smart_lib.net
+package com.mitnick.tannotour.smart_lib.http
 
-import com.mitnick.tannotour.smart_lib.net.params.NetParams
-import com.mitnick.tannotour.smart_lib.net.params.NetParamsPOST
+import com.mitnick.tannotour.smart_lib.http.params.NetParams
+import com.mitnick.tannotour.smart_lib.http.params.NetParamsPOST
 import java.io.File
 
 

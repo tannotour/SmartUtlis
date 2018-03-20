@@ -1,4 +1,4 @@
-package com.mitnick.tannotour.smart_lib.net.params
+package com.mitnick.tannotour.smart_lib.http.params
 
 
 /**

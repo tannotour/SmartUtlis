@@ -1,7 +1,7 @@
-package com.mitnick.tannotour.smart_lib.net
+package com.mitnick.tannotour.smart_lib.http
 
 import android.util.Log
-import com.mitnick.tannotour.smart_lib.net.log.Okhttp3LoggingInterceptor
+import com.mitnick.tannotour.smart_lib.http.log.Okhttp3LoggingInterceptor
 import okhttp3.*
 import java.io.File
 import java.util.HashMap

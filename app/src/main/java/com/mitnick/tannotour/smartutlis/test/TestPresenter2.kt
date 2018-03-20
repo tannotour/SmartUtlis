@@ -12,7 +12,7 @@ import com.mitnick.tannotour.easylib.net.toObj
  * Created by mitnick on 2017/11/27.
  * Description
  */
-class TestPresenter: INet {
+class TestPresenter2: INet {
     var URLL: String = ""
     fun doPost(): STATE {
         /* 请求网络 */
@@ -36,7 +36,7 @@ class TestPresenter: INet {
     }
 
     fun doGet(): com.mitnick.tannotour.smart_lib.async.STATE {
-        Log.e("doGet", "$this->${Thread.currentThread() == Looper.getMainLooper().thread}")
+        Log.e("doGet2", "$this->${Thread.currentThread() == Looper.getMainLooper().thread}")
         /* 请求网络 */
         val response = get<YY> {
             url = URLL

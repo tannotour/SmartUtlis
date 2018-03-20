@@ -1,4 +1,4 @@
-package com.mitnick.tannotour.smart_lib.net.log;
+package com.mitnick.tannotour.smart_lib.http.log;
 
 import java.io.EOFException;
 import java.io.IOException;

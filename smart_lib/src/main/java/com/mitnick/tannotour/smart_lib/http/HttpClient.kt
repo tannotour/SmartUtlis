@@ -1,4 +1,4 @@
-package com.mitnick.tannotour.smart_lib.net
+package com.mitnick.tannotour.smart_lib.http
 
 import com.mitnick.tannotour.smart_lib.convert.Converter
 import java.io.File
