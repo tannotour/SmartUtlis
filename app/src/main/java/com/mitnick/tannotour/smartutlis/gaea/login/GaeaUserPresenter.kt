@@ -17,6 +17,7 @@ class GaeaUserPresenter: INet {
             url = "${HttpHost.API_URL}v1/user/login"
             data.put("phone", phone)
             data.put("password", password)
+            data.put("lastLogoutTime", "2018-03-20 00:00:00")
         }.convert(LoginNetBean::class.java){
             true
         }?.body
