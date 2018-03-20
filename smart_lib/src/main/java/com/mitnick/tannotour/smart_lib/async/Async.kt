@@ -8,9 +8,9 @@ import java.util.concurrent.locks.ReentrantLock
  */
 object Async {
 
-    val presenters: HashMap<String, Presenter> = HashMap()
+    private val presenters: HashMap<String, Presenter> = HashMap()
 
-    fun <T: Any> get(clazz: Class<T>, doJob: T.() -> STATE): STATE {//: Lazy<T> = lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+    fun <T: Any> get(clazz: Class<T>, doJob: T.() -> STATE): STATE {
         if(!presenters.contains(clazz.name)){
             synchronized(Async::class.java){
                 if(!presenters.contains(clazz.name)){
