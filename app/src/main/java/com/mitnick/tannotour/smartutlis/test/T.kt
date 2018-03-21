@@ -1,4 +1,4 @@
-package com.mitnick.tannotour.smart_lib
+package com.mitnick.tannotour.smartutlis.test
 
 import com.mitnick.tannotour.smart_lib.cache.Cache.register
 import com.mitnick.tannotour.smart_lib.cache.Cache.unRegister
