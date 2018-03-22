@@ -33,7 +33,7 @@ allprojects {
 //            links "http://docs.oracle.com/javase/7/docs/api"
 //        }
 //    }
-//    tasks.getByPath(':faster-utils:javadoc').enabled=false
+//    tasks.getByPath(':smart_lib:javadoc').enabled=false
 }
 
 task clean(type: Delete) {

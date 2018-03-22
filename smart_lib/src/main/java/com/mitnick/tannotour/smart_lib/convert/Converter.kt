@@ -10,12 +10,13 @@ import com.google.gson.Gson
 object Converter {
 
     private val TAG = "Converter"
+    private val gson: Gson by lazy { Gson() }
 
     fun <T> convert(json: String, clazz: Class<T>): T?{
         var result: T? = null
         try {
             if(json.isNotEmpty()){
-                result = Gson().fromJson(json, clazz)
+                result = gson.fromJson(json, clazz)
             }else{
                 Log.e(TAG, "json为空，转化失败")
             }
@@ -23,6 +24,14 @@ object Converter {
             e.printStackTrace()
         }finally {
             return result
+        }
+    }
+
+    fun toJson(obj: Any?): String{
+        if(obj == null){
+            return ""
+        }else{
+            return gson.toJson(obj)
         }
     }
 }
