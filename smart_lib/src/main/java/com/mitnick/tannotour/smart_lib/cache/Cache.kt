@@ -29,7 +29,7 @@ object Cache {
         disk!!.init(application.applicationContext)
     }
 
-    fun Any.register(){
+    fun Any.register(need: Boolean = true){
         this.javaClass.methods.filter {
             it.isAnnotationPresent(CacheReceiver::class.java)
         }.forEach {
@@ -37,7 +37,9 @@ object Cache {
             val secondKey = if(this is SecondKey) this.getSecondKey() else ""
             val cacheBean = checkKey(clazz, secondKey)
             cacheBean.addObserver(this)
-            cacheBean.notifyObserver(this)
+            if(need){
+                cacheBean.notifyObserver(this)
+            }
         }
     }
 
