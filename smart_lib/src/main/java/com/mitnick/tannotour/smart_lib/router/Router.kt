@@ -57,6 +57,8 @@ object Router {
             }else{
                 routerTable.put(path, clazzName)
             }
+        }else{
+            Log.e(TAG, "$this 必须使用PathDynamic注解修饰")
         }
     }
 
